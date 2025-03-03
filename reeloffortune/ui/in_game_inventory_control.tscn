@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqw71n8563mph"]
+
+[ext_resource type="Script" uid="uid://c6tpf8sqb5ya0" path="res://ui/in_game_inventory_control.gd" id="1_mkm7k"]
+[ext_resource type="PackedScene" uid="uid://t80c57shi1b5" path="res://ui/inventory_panel_container.tscn" id="2_b27uc"]
+
+[node name="InGameInventoryControl" type="Control"]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -36.0
+grow_vertical = 0
+script = ExtResource("1_mkm7k")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+offset_right = 147.0
+offset_bottom = 56.0
+size_flags_horizontal = 0
+text = "Inventory"
+
+[node name="InventoryPanelContainer" parent="." instance=ExtResource("2_b27uc")]
+layout_mode = 0
+offset_top = 42.0
+offset_bottom = 66.0

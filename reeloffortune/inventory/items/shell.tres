@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="ItemType" load_steps=5 format=3 uid="uid://dq0siwvgep80i"]
+
+[ext_resource type="Script" uid="uid://da6j1eiq0ev37" path="res://inventory/item_type.gd" id="1_f1hyv"]
+[ext_resource type="Script" uid="uid://cqv108j88rxjw" path="res://inventory/item_attributes.gd" id="1_ybc1i"]
+[ext_resource type="Texture2D" uid="uid://dwedjlslkgsw2" path="res://sprites/algae.png" id="3_q70ve"]
+
+[sub_resource type="Resource" id="Resource_1cngb"]
+script = ExtResource("1_ybc1i")
+type_flag = 2
+size = 1
+attraction = 0
+color = 0
+texture = 4
+temperature = 1
+metadata/_custom_type_script = "uid://cqv108j88rxjw"
+
+[resource]
+script = ExtResource("1_f1hyv")
+name = "Shell"
+attributes = SubResource("Resource_1cngb")
+sprite = ExtResource("3_q70ve")
+breakdown = Array[ExtResource("1_f1hyv")]([])
+metadata/_custom_type_script = "uid://da6j1eiq0ev37"

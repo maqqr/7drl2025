@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dmx5cc4shf6n2"]
+
+[ext_resource type="PackedScene" uid="uid://bwjpp71fs7qnw" path="res://models/water_scene.tscn" id="1_yb86c"]
+
+[node name="Water" type="Node3D"]
+
+[node name="water" parent="." instance=ExtResource("1_yb86c")]

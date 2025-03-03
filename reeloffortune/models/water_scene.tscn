@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bwjpp71fs7qnw"]
+
+[ext_resource type="PackedScene" uid="uid://ds5c14e34vxjq" path="res://models/water.fbx" id="1_cdras"]
+[ext_resource type="Shader" uid="uid://cv2bhyp5f3ecs" path="res://shader/water.gdshader" id="2_txewj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g3d1s"]
+render_priority = 0
+shader = ExtResource("2_txewj")
+shader_parameter/out_color = Color(0.5, 0.5, 1, 1)
+shader_parameter/specular = 0.9
+shader_parameter/roughness = 0.2
+shader_parameter/time_scale = 2.0
+shader_parameter/beer_factor = 2.0
+
+[node name="water" instance=ExtResource("1_cdras")]
+
+[node name="Water" parent="." index="0"]
+material_override = SubResource("ShaderMaterial_g3d1s")

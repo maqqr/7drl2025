@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://t80c57shi1b5"]
+
+[ext_resource type="Script" uid="uid://biesxi3ku0hbt" path="res://ui/inventory_panel_container.gd" id="1_6b6lt"]
+
+[node name="InventoryPanelContainer" type="PanelContainer"]
+offset_top = 41.425
+offset_right = 24.0
+offset_bottom = 65.425
+script = ExtResource("1_6b6lt")
+
+[node name="BackgroundGrid" type="Control" parent="."]
+layout_mode = 2

@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://qa6yywtj7s5c"]
+
+[ext_resource type="Script" uid="uid://vfqrov6kdeln" path="res://characters/character.gd" id="1_3eadt"]
+[ext_resource type="Resource" uid="uid://dilmksiqs15mx" path="res://characters/stats/player_stats.tres" id="2_x0jl3"]
+[ext_resource type="Script" uid="uid://bttuux5vg31xc" path="res://game/light_flicker.gd" id="3_tory2"]
+[ext_resource type="PackedScene" uid="uid://dy0trp16io535" path="res://models/player_scene.tscn" id="3_x0jl3"]
+
+[node name="Player" type="Node3D"]
+script = ExtResource("1_3eadt")
+stats = ExtResource("2_x0jl3")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75396, 0)
+light_color = Color(1, 0.563422, 0.342542, 1)
+light_energy = 6.0
+shadow_enabled = true
+shadow_opacity = 0.75
+script = ExtResource("3_tory2")
+
+[node name="player" parent="." instance=ExtResource("3_x0jl3")]
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.218693, 0.88154, 0.761909)
+light_color = Color(1, 0.839427, 0.633811, 1)
+light_energy = 0.2
+omni_range = 1.665
+omni_attenuation = 0.5
