@@ -8,9 +8,10 @@
 script = ExtResource("1_njikt")
 type_flag = 2
 size = 1
-attraction = 0
+attraction_flag = 0
 color = 0
-texture = 3
+stickyness = 0
+sharpness = 1
 temperature = 0
 metadata/_custom_type_script = "uid://cqv108j88rxjw"
 

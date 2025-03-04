@@ -28,12 +28,14 @@ static func quality_multiplier(q: Quality) -> int:
 func get_value() -> int:
 	return int(quality_multiplier(quality) * item_type.base_value)
 
-func make_tooltip(game_manager: GameManager):
+func make_tooltip(game_manager: GameManager) -> String:
 	var tags: PackedStringArray = ItemAttributes.type_str(item_type.attributes.type_flag)
 	var add_if_not_empty = func (t): if not t.is_empty(): tags.append(t)
-	add_if_not_empty.call(ItemAttributes.attraction_str(item_type.attributes.attraction))
+	for tag in ItemAttributes.attraction_flag_str(item_type.attributes.attraction_flag):
+		tags.append(tag)
 	add_if_not_empty.call(ItemAttributes.color_str(item_type.attributes.color))
-	add_if_not_empty.call(ItemAttributes.texture_str(item_type.attributes.texture))
+	add_if_not_empty.call(ItemAttributes.sharpness_str(item_type.attributes.sharpness))
+	add_if_not_empty.call(ItemAttributes.stickyness_str(item_type.attributes.stickyness))
 	add_if_not_empty.call(ItemAttributes.temperature_str(item_type.attributes.temperature))
 
 	var breakdown := PackedStringArray()

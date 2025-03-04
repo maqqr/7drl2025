@@ -1,11 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://clmb0ahu2wc0x"]
+[gd_scene load_steps=3 format=3 uid="uid://clmb0ahu2wc0x"]
 
 [ext_resource type="Script" uid="uid://d2q4jcjqgadv1" path="res://game/crafting_control.gd" id="1_eumly"]
+[ext_resource type="Script" uid="uid://isbadk66je2m" path="res://ui/crafting_panel.gd" id="2_3p5ax"]
 
-[node name="CraftingControl" type="Control"]
+[node name="CraftingControl" type="Control" node_paths=PackedStringArray("material1_panel", "material2_panel", "result_panel", "break_panel")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_eumly")
+material1_panel = NodePath("PanelContainer/VBoxContainer/HBoxContainer/Panel")
+material2_panel = NodePath("PanelContainer/VBoxContainer/HBoxContainer2/Panel")
+result_panel = NodePath("PanelContainer/VBoxContainer/HBoxContainer3/Panel")
+break_panel = NodePath("PanelContainer/VBoxContainer/HBoxContainer4/Panel")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0
@@ -35,6 +40,8 @@ text = "Material ->"
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_type_variation = &"PanelSimple"
+script = ExtResource("2_3p5ax")
+metadata/_custom_type_script = "uid://isbadk66je2m"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -48,6 +55,8 @@ text = "Material ->"
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_type_variation = &"PanelSimple"
+script = ExtResource("2_3p5ax")
+metadata/_custom_type_script = "uid://isbadk66je2m"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -61,6 +70,8 @@ text = "Result <-"
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_type_variation = &"PanelSimple"
+script = ExtResource("2_3p5ax")
+metadata/_custom_type_script = "uid://isbadk66je2m"
 
 [node name="HSeparator" type="HSeparator" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -77,3 +88,5 @@ text = "Break item->"
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_type_variation = &"PanelSimple"
+script = ExtResource("2_3p5ax")
+metadata/_custom_type_script = "uid://isbadk66je2m"

@@ -1,41 +1,45 @@
 extends PanelContainer
 
-class DragOperation:
-	var item: Item
-	var original_sprite: Sprite2D
-	var drag_sprite: Sprite2D
-	var target_panel: ItemPanel
-	func _init(item: Item, original_sprite: Sprite2D):
-		assert(item && original_sprite)
-		self.item = item
-		self.original_sprite = original_sprite
-		drag_sprite = Sprite2D.new()
-		drag_sprite.texture = item.item_type.sprite
-		drag_sprite.scale = Vector2(2.0, 2.0)
-		drag_sprite.z_index = 1
-
-	func start(parent: Control):
-		original_sprite.visible = false
-		parent.add_child(drag_sprite)
-
-	func stop():
-		original_sprite.visible = true
-		drag_sprite.queue_free()
-
 @onready var game_manager: GameManager = $"/root/Game"
 @onready var grid_container: Control = $"BackgroundGrid"
 var slot_to_panel_dict: Dictionary[Vector2i, ItemPanel] = {}
 
 var inventory: Inventory
-var drag_operation: DragOperation
 var item_sprite_container: Control
 var item_sprite_dict: Dictionary[Item, Sprite2D] = {}
 var need_refresh: bool
+var item_dragging: ItemDragging
 
 func _ready() -> void:
 	item_sprite_container = Control.new()
 	item_sprite_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(item_sprite_container)
+	
+	item_dragging = $"../../ItemDragging"
+	assert(item_dragging)
+	item_dragging.panel_providers.append(self)
+
+func get_panels():
+	return grid_container.get_children()
+
+func drag_ended_on_panel(target_panel: ItemPanel, item: Item) -> bool:
+	var slot = target_panel.slot
+	if item.item_type.item_size.x >= 3:
+		slot.x -= 1
+	
+	if inventory.items.find(item) != -1:
+		if inventory.item_fits_in_slot(item, slot):
+			item.inventory_slot = slot
+			inventory.inventory_changed.emit()
+			return true
+		return false
+	else:
+		if !inventory.item_fits_in_slot(item, slot):
+			slot = inventory.get_free_slot_for_item(item)
+
+		if slot != Inventory.INVALID_SLOT:
+			inventory.add_item(slot, item)
+		return true
 
 func set_inventory(inventory: Inventory) -> void:
 	self.inventory = inventory
@@ -69,12 +73,7 @@ func on_panel_gui_input(panel: ItemPanel, event: InputEvent) -> void:
 		if event.pressed and event.button_index == 1:
 			var item = inventory.get_item_at_slot(panel.slot)
 			if item:
-				start_drag(item)
-
-func start_drag(item: Item) -> void:
-	assert(!drag_operation)
-	drag_operation = DragOperation.new(item, item_sprite_dict[item])
-	drag_operation.start(self)
+				item_dragging.start_drag(item, item_sprite_dict[item])
 
 func _process(delta: float) -> void:
 	if need_refresh:
@@ -100,29 +99,3 @@ func _process(delta: float) -> void:
 			for dx in item.item_type.item_size.x:
 				for dy in item.item_type.item_size.y:
 					slot_to_panel_dict[item.inventory_slot + Vector2i(dx, dy)].tooltip_text = item.make_tooltip(game_manager)
-
-	if drag_operation:
-		var mouse_pos = get_viewport().get_mouse_position()
-		drag_operation.drag_sprite.global_position = mouse_pos
-
-		drag_operation.target_panel = null
-		for panel: ItemPanel in grid_container.get_children():
-			if panel.get_rect().has_point(get_local_mouse_position()):
-				drag_operation.target_panel = panel
-
-		if Input.is_action_just_released("click"):
-			# Drop item to a slot
-			if drag_operation.target_panel:
-				var slot = drag_operation.target_panel.slot
-				if drag_operation.item.item_type.item_size.x >= 3:
-					slot.x -= 1
-				if inventory.item_fits_in_slot(drag_operation.item, slot):
-					drag_operation.item.inventory_slot = slot
-			else:
-				# TODO: Drop signal
-				var pos = game_manager.cursor_tile if game_manager.tilemap.is_walkable(game_manager.cursor_tile) else game_manager.player.map_position
-				game_manager.create_ground_item(pos, drag_operation.item)
-				inventory.remove_item(drag_operation.item)
-			drag_operation.stop()
-			drag_operation = null
-			inventory.inventory_changed.emit()

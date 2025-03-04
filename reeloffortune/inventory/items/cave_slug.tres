@@ -10,9 +10,10 @@
 script = ExtResource("1_xdxwi")
 type_flag = 3
 size = 1
-attraction = 0
+attraction_flag = 0
 color = 0
-texture = 1
+stickyness = 1
+sharpness = 0
 temperature = 0
 metadata/_custom_type_script = "uid://cqv108j88rxjw"
 

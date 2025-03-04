@@ -7,11 +7,12 @@
 
 [sub_resource type="Resource" id="Resource_4m4km"]
 script = ExtResource("1_qfk7j")
-type_flag = 64
+type_flag = 65
 size = 3
-attraction = 4
+attraction_flag = 8
 color = 0
-texture = 2
+stickyness = 2
+sharpness = 0
 temperature = 0
 metadata/_custom_type_script = "uid://cqv108j88rxjw"
 

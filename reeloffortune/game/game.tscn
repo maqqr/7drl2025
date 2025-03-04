@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://dx021aa4tejww"]
+[gd_scene load_steps=10 format=3 uid="uid://dx021aa4tejww"]
 
 [ext_resource type="Script" uid="uid://dvrl1vh7ug3qs" path="res://game/game_manager.gd" id="1_hu71m"]
 [ext_resource type="Shader" uid="uid://vw787p7laj5g" path="res://shader/colorrect_dither.gdshader" id="2_vasa2"]
 [ext_resource type="PackedScene" uid="uid://dqw71n8563mph" path="res://ui/in_game_inventory_control.tscn" id="3_h7iqs"]
 [ext_resource type="PackedScene" uid="uid://clmb0ahu2wc0x" path="res://ui/crafting_control.tscn" id="4_dxrkv"]
 [ext_resource type="PackedScene" uid="uid://bv7byv1367fl7" path="res://ui/equip_slot_panel_container.tscn" id="5_dxrkv"]
+[ext_resource type="Script" uid="uid://dalvnlugoin2q" path="res://ui/item_dragging.gd" id="6_dakft"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vasa2"]
 albedo_color = Color(0, 0, 0, 1)
@@ -138,3 +139,10 @@ equip_flag = 32
 [node name="EquipSlotPanelContainer4" parent="GUI/PanelContainer/HBoxContainer" instance=ExtResource("5_dxrkv")]
 layout_mode = 2
 equip_flag = 16
+
+[node name="ItemDragging" type="Control" parent="GUI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("6_dakft")

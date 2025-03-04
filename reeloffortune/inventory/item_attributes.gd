@@ -13,17 +13,17 @@ static func size_str(s: Size) -> String:
 		Size.MASSIVE: return "massive"
 	return ""
 
-enum Attraction {
-	NONE, LUMINESCENT, SCENTED, VIBRATING, MIMICRY, FLAVORFUL
+enum AttractionFlag {
+	NONE = 0, LUMINESCENT = 1, SCENTED = 2, VIBRATING = 4, MIMICRY = 8, FLAVORFUL = 16
 }
-static func attraction_str(a: Attraction) -> String:
-	match a:
-		Attraction.LUMINESCENT: return "luminescent"
-		Attraction.SCENTED: return "scented"
-		Attraction.VIBRATING: return "vibrating"
-		Attraction.MIMICRY: return "mimicry"
-		Attraction.FLAVORFUL: return "flavorful"
-	return ""
+static func attraction_flag_str(a: AttractionFlag) -> PackedStringArray:
+	var result: PackedStringArray = []
+	if a & AttractionFlag.LUMINESCENT: result.append("luminescent")
+	if a & AttractionFlag.SCENTED: result.append("scented")
+	if a & AttractionFlag.VIBRATING: result.append("vibrating")
+	if a & AttractionFlag.MIMICRY: result.append("mimicry")
+	if a & AttractionFlag.FLAVORFUL: result.append("flavorful")
+	return result
 
 enum ColorAttribute {
 	NONE, DULL_COLOR, COLORFUL
@@ -34,16 +34,32 @@ static func color_str(c: ColorAttribute) -> String:
 		ColorAttribute.COLORFUL: return "colorful"
 	return ""
 
-enum TextureAttribute {
-	NONE, STICKY, SLIPPERY, SHARP, SMOOTH
+static func color_mix(c1: ColorAttribute, c2: ColorAttribute) -> ColorAttribute:
+	return generic_exclusive_mix(c1, c2) as ColorAttribute
+
+enum Stickyness {
+	NONE, STICKY, SLIPPERY
 }
-static func texture_str(t: TextureAttribute) -> String:
+static func stickyness_str(t: Stickyness) -> String:
 	match t:
-		TextureAttribute.STICKY: return "sticky"
-		TextureAttribute.SLIPPERY: return "slippery"
-		TextureAttribute.SHARP: return "sharp"
-		TextureAttribute.SMOOTH: return "smooth"
+		Stickyness.STICKY: return "sticky"
+		Stickyness.SLIPPERY: return "slippery"
 	return ""
+
+static func stickyness_mix(c1: Stickyness, c2: Stickyness) -> Stickyness:
+	return generic_exclusive_mix(c1, c2) as Stickyness
+
+enum Sharpness {
+	NONE, SHARP, SMOOTH
+}
+static func sharpness_str(t: Sharpness) -> String:
+	match t:
+		Sharpness.SHARP: return "sharp"
+		Sharpness.SMOOTH: return "smooth"
+	return ""
+
+static func sharpness_mix(c1: Sharpness, c2: Sharpness) -> Sharpness:
+	return generic_exclusive_mix(c1, c2) as Sharpness
 
 enum Temperature {
 	NEUTRAL, COLD, WARM
@@ -53,6 +69,9 @@ static func temperature_str(t: Temperature) -> String:
 		Temperature.COLD: return "cold"
 		Temperature.WARM: return "warm"
 	return ""
+
+static func temperature_mix(t1: Temperature, t2: Temperature) -> Temperature:
+	return generic_exclusive_mix(t1, t2) as Temperature
 
 enum TypeFlag {
 	BAIT = 1, MATERIAL = 2, ROD = 4, CONSUMABLE = 8, CLOTHING = 16, BOOTS = 32, FISH = 64, CURSED = 128
@@ -71,7 +90,17 @@ static func type_str(t: TypeFlag) -> PackedStringArray:
 
 @export_flags("BAIT", "MATERIAL", "ROD", "CONSUMABLE", "CLOTHING", "BOOTS", "FISH", "CURSED") var type_flag: int
 @export var size: Size
-@export var attraction: Attraction
+@export_flags("LUMINESCENT", "SCENTED", "VIBRATING", "MIMICRY", "FLAVORFUL") var attraction_flag: int
 @export var color: ColorAttribute
-@export var texture: TextureAttribute
+@export var stickyness: Stickyness
+@export var sharpness: Sharpness
 @export var temperature: Temperature
+
+static func generic_exclusive_mix(v1: int, v2: int) -> int:
+	if v1 == 0:
+		return v2
+	if v2 == 0:
+		return v1
+	if v1 == v2:
+		return v1
+	return 0
