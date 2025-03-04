@@ -12,6 +12,7 @@ class DragOperation:
 		drag_sprite = Sprite2D.new()
 		drag_sprite.texture = item.item_type.sprite
 		drag_sprite.scale = Vector2(2.0, 2.0)
+		drag_sprite.z_index = 1
 
 	func start(parent: Control):
 		original_sprite.visible = false
@@ -29,6 +30,7 @@ var inventory: Inventory
 var drag_operation: DragOperation
 var item_sprite_container: Control
 var item_sprite_dict: Dictionary[Item, Sprite2D] = {}
+var need_refresh: bool
 
 func _ready() -> void:
 	item_sprite_container = Control.new()
@@ -51,9 +53,7 @@ func on_inventory_size_change() -> void:
 	for y in inventory.size.y:
 		for x in inventory.size.x:
 			var slot = Vector2i(x, y)
-			var panel = ItemPanel.new()
-			panel.slot = slot
-			panel.custom_minimum_size = Vector2i(80.0, 80.0)
+			var panel = ItemPanel.new(slot)
 			panel.position = Vector2(slot * Vector2i(80.0, 80.0))
 			panel.theme_type_variation = "PanelSimple"
 			panel.modulate = Color(0.3, 0.3, 0.3)
@@ -62,30 +62,11 @@ func on_inventory_size_change() -> void:
 			slot_to_panel_dict[slot] = panel
 
 func on_inventory_change() -> void:
-	# Clear old items
-	item_sprite_dict.clear()
-	for child in item_sprite_container.get_children():
-		child.free()
-
-	# Clear tooltips
-	for child: ItemPanel in grid_container.get_children():
-		child.tooltip_text = ""
-
-	for item: Item in inventory.items:
-		var sprite = Sprite2D.new()
-		sprite.texture = item.item_type.sprite
-		sprite.offset = (Vector2i(40.0, 40.0) * item.item_type.item_size) / 2.0
-		sprite.position = Vector2(Vector2i(80.0, 80.0) * item.inventory_slot)
-		sprite.scale = Vector2i(2.0, 2.0)
-		item_sprite_container.add_child(sprite)
-		item_sprite_dict[item] = sprite
-		for dx in item.item_type.item_size.x:
-			for dy in item.item_type.item_size.y:
-				slot_to_panel_dict[item.inventory_slot + Vector2i(dx, dy)].tooltip_text = item.make_tooltip()
+	need_refresh = true
 
 func on_panel_gui_input(panel: ItemPanel, event: InputEvent) -> void:
 	if event is InputEventMouseButton:
-		if event.pressed:
+		if event.pressed and event.button_index == 1:
 			var item = inventory.get_item_at_slot(panel.slot)
 			if item:
 				start_drag(item)
@@ -95,11 +76,31 @@ func start_drag(item: Item) -> void:
 	drag_operation = DragOperation.new(item, item_sprite_dict[item])
 	drag_operation.start(self)
 
-func end_drag() -> void:
-	assert(drag_operation)
-	drag_operation.stop()
-
 func _process(delta: float) -> void:
+	if need_refresh:
+		need_refresh = false
+
+		# Clear old items
+		item_sprite_dict.clear()
+		for child in item_sprite_container.get_children():
+			child.free()
+
+		# Clear tooltips
+		for child: ItemPanel in grid_container.get_children():
+			child.tooltip_text = ""
+
+		for item: Item in inventory.items:
+			var sprite = Sprite2D.new()
+			sprite.texture = item.item_type.sprite
+			sprite.offset = (Vector2i(40.0, 40.0) * item.item_type.item_size) / 2.0
+			sprite.position = Vector2(Vector2i(80.0, 80.0) * item.inventory_slot)
+			sprite.scale = Vector2i(2.0, 2.0)
+			item_sprite_container.add_child(sprite)
+			item_sprite_dict[item] = sprite
+			for dx in item.item_type.item_size.x:
+				for dy in item.item_type.item_size.y:
+					slot_to_panel_dict[item.inventory_slot + Vector2i(dx, dy)].tooltip_text = item.make_tooltip(game_manager)
+
 	if drag_operation:
 		var mouse_pos = get_viewport().get_mouse_position()
 		drag_operation.drag_sprite.global_position = mouse_pos
@@ -110,7 +111,7 @@ func _process(delta: float) -> void:
 				drag_operation.target_panel = panel
 
 		if Input.is_action_just_released("click"):
-			var erase_item = null
+			# Drop item to a slot
 			if drag_operation.target_panel:
 				var slot = drag_operation.target_panel.slot
 				if drag_operation.item.item_type.item_size.x >= 3:
@@ -121,9 +122,7 @@ func _process(delta: float) -> void:
 				# TODO: Drop signal
 				var pos = game_manager.cursor_tile if game_manager.tilemap.is_walkable(game_manager.cursor_tile) else game_manager.player.map_position
 				game_manager.create_ground_item(pos, drag_operation.item)
-				erase_item = drag_operation.item
+				inventory.remove_item(drag_operation.item)
 			drag_operation.stop()
 			drag_operation = null
 			inventory.inventory_changed.emit()
-			if erase_item:
-				inventory.remove_item(erase_item)

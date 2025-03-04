@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="ItemType" load_steps=5 format=3 uid="uid://cuhrxdwyroc6p"]
+[gd_resource type="Resource" script_class="ItemType" load_steps=6 format=3 uid="uid://cuhrxdwyroc6p"]
 
 [ext_resource type="Script" uid="uid://cqv108j88rxjw" path="res://inventory/item_attributes.gd" id="1_qfk7j"]
 [ext_resource type="Script" uid="uid://da6j1eiq0ev37" path="res://inventory/item_type.gd" id="2_rttgx"]
+[ext_resource type="Resource" uid="uid://i83r3pebmred" path="res://inventory/items/fish_bone.tres" id="3_5t7v6"]
 [ext_resource type="Texture2D" uid="uid://dcpnjex0kht25" path="res://sprites/trout.png" id="3_rttgx"]
 
 [sub_resource type="Resource" id="Resource_4m4km"]
@@ -17,8 +18,9 @@ metadata/_custom_type_script = "uid://cqv108j88rxjw"
 [resource]
 script = ExtResource("2_rttgx")
 name = "Cave trout"
+base_value = 30
 item_size = Vector2i(3, 1)
 attributes = SubResource("Resource_4m4km")
 sprite = ExtResource("3_rttgx")
-breakdown = Array[ExtResource("2_rttgx")]([])
+breakdown = Array[ExtResource("2_rttgx")]([ExtResource("3_5t7v6")])
 metadata/_custom_type_script = "uid://da6j1eiq0ev37"

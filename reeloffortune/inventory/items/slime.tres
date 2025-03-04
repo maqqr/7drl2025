@@ -17,6 +17,7 @@ metadata/_custom_type_script = "uid://cqv108j88rxjw"
 [resource]
 script = ExtResource("2_fdg8p")
 name = "Slime"
+base_value = 2
 item_size = Vector2i(1, 1)
 attributes = SubResource("Resource_8yxws")
 sprite = ExtResource("3_fdg8p")

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=13 format=3 uid="uid://cc0puase5inag"]
+[gd_resource type="Theme" load_steps=15 format=3 uid="uid://cc0puase5inag"]
 
 [ext_resource type="FontFile" uid="uid://hx72vnusp726" path="res://ui_theme/Eldring.ttf" id="1_nn3af"]
 [ext_resource type="Texture2D" uid="uid://ctfvx3iepdald" path="res://ui_theme/button.png" id="2_8ugpu"]
@@ -25,12 +25,23 @@ texture_margin_right = 14.0
 texture_margin_bottom = 14.0
 modulate_color = Color(0.636719, 0.636719, 0.636719, 1)
 
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_8cn0g"]
+color = Color(0.589844, 0.589844, 0.589844, 1)
+thickness = 2
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c1odr"]
 texture = ExtResource("4_v6fjb")
 texture_margin_left = 12.0
 texture_margin_top = 12.0
 texture_margin_right = 12.0
 texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f1yd7"]
+texture = ExtResource("5_82c4i")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8cn0g"]
 texture = ExtResource("5_82c4i")
@@ -46,9 +57,12 @@ Button/styles/focus = SubResource("StyleBoxEmpty_8ugpu")
 Button/styles/hover = SubResource("StyleBoxTexture_82c4i")
 Button/styles/normal = SubResource("StyleBoxTexture_v6fjb")
 Button/styles/pressed = SubResource("StyleBoxTexture_v6fjb")
+HSeparator/styles/separator = SubResource("StyleBoxLine_8cn0g")
 Label/font_sizes/font_size = 23
 Label/fonts/font = ExtResource("1_nn3af")
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_c1odr")
+PanelContainerSimple/base_type = &"PanelContainer"
+PanelContainerSimple/styles/panel = SubResource("StyleBoxTexture_f1yd7")
 PanelSimple/base_type = &"Panel"
 PanelSimple/styles/panel = SubResource("StyleBoxTexture_8cn0g")
 RichTextLabel/font_sizes/bold_font_size = 23

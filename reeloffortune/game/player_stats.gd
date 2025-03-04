@@ -5,3 +5,4 @@ extends Resource
 @export var stamina: int
 @export var max_stamina: int
 @export var inventory: Inventory = Inventory.new()
+var breakdown_knowledge = {}

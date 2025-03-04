@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://bv7byv1367fl7"]
+
+[ext_resource type="Script" uid="uid://0nssarkjortp" path="res://ui/equip_slot_panel_container.gd" id="1_vs06n"]
+
+[node name="EquipSlotPanelContainer" type="PanelContainer"]
+modulate = Color(0.625, 0.625, 0.625, 1)
+custom_minimum_size = Vector2(80, 80)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"PanelContainerSimple"
+script = ExtResource("1_vs06n")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 2
+bbcode_enabled = true
+text = "[i]Rod[/i]"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -2,6 +2,7 @@ class_name ItemType
 extends Resource
 
 @export var name: String
+@export var base_value: int
 @export var item_size: Vector2i = Vector2i(1, 1)
 @export var attributes: ItemAttributes
 @export var sprite: Texture
@@ -27,4 +28,14 @@ static func load_all() -> Array[ItemType]:
 	var paths = _get_all_file_paths("res://inventory/items")
 	for path in paths:
 		items.append(load(path))
+
+	var valid_ids: Array[int]
+	for item in items:
+		valid_ids.append(item.get_instance_id())
+
+	# Check that breakdowns do not contain custom item types
+	for item in items:
+		for i in item.breakdown:
+			assert(valid_ids.find(i.get_instance_id()) != -1)
+
 	return items

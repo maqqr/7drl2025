@@ -17,6 +17,8 @@ metadata/_custom_type_script = "uid://cqv108j88rxjw"
 [resource]
 script = ExtResource("1_f1hyv")
 name = "Shell"
+base_value = 3
+item_size = Vector2i(1, 1)
 attributes = SubResource("Resource_1cngb")
 sprite = ExtResource("3_q70ve")
 breakdown = Array[ExtResource("1_f1hyv")]([])
