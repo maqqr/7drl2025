@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=15 format=3 uid="uid://cc0puase5inag"]
+[gd_resource type="Theme" load_steps=16 format=3 uid="uid://cc0puase5inag"]
 
 [ext_resource type="FontFile" uid="uid://hx72vnusp726" path="res://ui_theme/Eldring.ttf" id="1_nn3af"]
 [ext_resource type="Texture2D" uid="uid://ctfvx3iepdald" path="res://ui_theme/button.png" id="2_8ugpu"]
@@ -50,6 +50,11 @@ texture_margin_top = 6.0
 texture_margin_right = 6.0
 texture_margin_bottom = 6.0
 
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_f1yd7"]
+color = Color(0.588235, 0.588235, 0.588235, 1)
+thickness = 4
+vertical = true
+
 [resource]
 Button/font_sizes/font_size = 23
 Button/fonts/font = ExtResource("1_nn3af")
@@ -71,3 +76,4 @@ RichTextLabel/font_sizes/normal_font_size = 23
 RichTextLabel/fonts/bold_font = ExtResource("6_8cn0g")
 RichTextLabel/fonts/italics_font = ExtResource("7_f1yd7")
 RichTextLabel/fonts/normal_font = ExtResource("1_nn3af")
+VSeparator/styles/separator = SubResource("StyleBoxLine_f1yd7")

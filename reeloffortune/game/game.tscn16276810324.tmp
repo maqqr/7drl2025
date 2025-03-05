@@ -73,17 +73,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 
 [node name="GUI" type="CanvasLayer" parent="."]
-
-[node name="ToolTipLabel" type="Label" parent="GUI"]
-offset_right = 40.0
-offset_bottom = 28.0
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 8
-text = "Cave Trout"
 
 [node name="InventoryControl" parent="GUI" instance=ExtResource("3_h7iqs")]
 offset_top = -146.0
@@ -106,39 +97,35 @@ grow_vertical = 0
 size_flags_horizontal = 3
 size_flags_vertical = 8
 script = ExtResource("5_u5opy")
-equip_panels = [NodePath("HBoxContainer/EquipSlotPanelContainer"), NodePath("HBoxContainer/EquipSlotPanelContainer2"), NodePath("HBoxContainer/EquipSlotPanelContainer3"), NodePath("HBoxContainer/EquipSlotPanelContainer4"), NodePath("HBoxContainer/EquipSlotPanelContainer5")]
+equip_panels = [NodePath("HBoxContainer/EquipSlotPanelContainer"), NodePath("HBoxContainer/EquipSlotPanelContainer2"), NodePath("HBoxContainer/EquipSlotPanelContainer3"), NodePath("HBoxContainer/EquipSlotPanelContainer4")]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="GUI/StatusPanelContainer"]
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GUI/StatusPanelContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = -2
 alignment = 1
 
 [node name="Label" type="Label" parent="GUI/StatusPanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "Stamina: 20/20"
+text = "HP: 10/10"
 
 [node name="Label2" type="Label" parent="GUI/StatusPanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "Money: 0"
-
-[node name="Label3" type="Label" parent="GUI/StatusPanelContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "Depth: 1"
+text = "Stamina: 20"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="GUI/StatusPanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="EquipSlotPanelContainer5" parent="GUI/StatusPanelContainer/HBoxContainer" instance=ExtResource("5_dxrkv")]
+[node name="Label" type="Label" parent="GUI/StatusPanelContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
-equip_flag = 8
+text = "Money: 0"
 
-[node name="VSeparator" type="VSeparator" parent="GUI/StatusPanelContainer/HBoxContainer"]
+[node name="Label2" type="Label" parent="GUI/StatusPanelContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
+text = "Depth: 0"
 
 [node name="EquipSlotPanelContainer" parent="GUI/StatusPanelContainer/HBoxContainer" instance=ExtResource("5_dxrkv")]
 layout_mode = 2

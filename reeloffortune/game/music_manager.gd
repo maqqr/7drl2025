@@ -7,4 +7,6 @@ func _ready() -> void:
 	add_child(audio)
 	
 	audio.stream = preload("res://audio/music/menu.ogg")
-	#audio.play()
+	audio.volume_linear = 0.6
+	if not OS.has_feature("editor"):
+		audio.play()

@@ -51,4 +51,5 @@ func remove_item_from_slot(slot: Vector2i) -> bool:
 
 func remove_item(item: Item) -> void:
 	items.erase(item)
+	item.inventory_slot = Inventory.INVALID_SLOT
 	inventory_changed.emit()

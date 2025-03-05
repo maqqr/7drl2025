@@ -58,7 +58,7 @@ func find_tile(tile_type: Enum.TileType, take_first: bool = false) -> Vector2i:
 	if candidates.is_empty():
 		push_error("Tile " + str(tile_type) + " not found")
 		return Vector2i.ZERO
-	return candidates[randi_range(0, candidates.size())]
+	return candidates[randi_range(0, candidates.size() - 1)]
 
 func is_walkable(pos: Vector2i) -> bool:
 	return get_tile(pos) == Enum.TileType.FLOOR

@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="ItemType" load_steps=8 format=3 uid="uid://jrjkjyx7souh"]
+
+[ext_resource type="Script" uid="uid://da6j1eiq0ev37" path="res://inventory/item_type.gd" id="1_gb1x2"]
+[ext_resource type="Script" uid="uid://cqv108j88rxjw" path="res://inventory/item_attributes.gd" id="1_is7sk"]
+[ext_resource type="Resource" uid="uid://i83r3pebmred" path="res://inventory/items/fish_bone.tres" id="3_lv78h"]
+[ext_resource type="Texture2D" uid="uid://b0k8osayp3v17" path="res://sprites/bass.png" id="4_1qvee"]
+[ext_resource type="Resource" uid="uid://cvrfikiop3ep" path="res://inventory/items/eyeball.tres" id="4_lv78h"]
+[ext_resource type="Resource" uid="uid://b012tmtrv8ba0" path="res://inventory/items/meat.tres" id="5_1qvee"]
+
+[sub_resource type="Resource" id="Resource_c8ofx"]
+script = ExtResource("1_is7sk")
+type_flag = 65
+size = 3
+attraction_flag = 8
+color = 0
+stickyness = 2
+sharpness = 0
+temperature = 0
+metadata/_custom_type_script = "uid://cqv108j88rxjw"
+
+[resource]
+script = ExtResource("1_gb1x2")
+name = "Emerald Cave Bass"
+base_value = 22
+item_size = Vector2i(2, 1)
+attributes = SubResource("Resource_c8ofx")
+sprite = ExtResource("4_1qvee")
+breakdown = Array[ExtResource("1_gb1x2")]([ExtResource("3_lv78h"), ExtResource("4_lv78h"), ExtResource("5_1qvee")])
+metadata/_custom_type_script = "uid://da6j1eiq0ev37"

@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://da6j1eiq0ev37" path="res://inventory/item_type.gd" id="1_mfraa"]
 [ext_resource type="Script" uid="uid://cqv108j88rxjw" path="res://inventory/item_attributes.gd" id="1_xdxwi"]
 [ext_resource type="Resource" uid="uid://dq0siwvgep80i" path="res://inventory/items/shell.tres" id="3_g8mq3"]
-[ext_resource type="Texture2D" uid="uid://dwedjlslkgsw2" path="res://sprites/algae.png" id="3_ld537"]
 [ext_resource type="Resource" uid="uid://dvevynt4bs0hd" path="res://inventory/items/slime.tres" id="4_qobfy"]
+[ext_resource type="Texture2D" uid="uid://e4ge02n7uohc" path="res://sprites/cave_slug.png" id="5_g8mq3"]
 
 [sub_resource type="Resource" id="Resource_ld537"]
 script = ExtResource("1_xdxwi")
@@ -19,10 +19,10 @@ metadata/_custom_type_script = "uid://cqv108j88rxjw"
 
 [resource]
 script = ExtResource("1_mfraa")
-name = "Cave slug"
+name = "Cave Slug"
 base_value = 6
 item_size = Vector2i(1, 1)
 attributes = SubResource("Resource_ld537")
-sprite = ExtResource("3_ld537")
+sprite = ExtResource("5_g8mq3")
 breakdown = Array[ExtResource("1_mfraa")]([ExtResource("3_g8mq3"), ExtResource("4_qobfy")])
 metadata/_custom_type_script = "uid://da6j1eiq0ev37"

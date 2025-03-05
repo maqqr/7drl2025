@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://0nssarkjortp" path="res://ui/equip_slot_panel_container.gd" id="1_vs06n"]
 
 [node name="EquipSlotPanelContainer" type="PanelContainer"]
-modulate = Color(0.625, 0.625, 0.625, 1)
+self_modulate = Color(0.623529, 0.623529, 0.623529, 1)
 custom_minimum_size = Vector2(80, 80)
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,7 +14,9 @@ theme_type_variation = &"PanelContainerSimple"
 script = ExtResource("1_vs06n")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
+self_modulate = Color(0.623529, 0.623529, 0.623529, 1)
 layout_mode = 2
+mouse_filter = 2
 bbcode_enabled = true
 text = "[i]Rod[/i]"
 fit_content = true

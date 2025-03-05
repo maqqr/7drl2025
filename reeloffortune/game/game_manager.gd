@@ -1,16 +1,21 @@
 class_name GameManager
 extends Node
 
+const PICKUP_DIST_SQ = 2 * 2
+
 var player: Character
 var player_stats: PlayerStats
 var cursor: Node3D
 var cursor_tile: Vector2i
+@export var tooltip_label: Label
 
 var characters: Array[Character] = []
 var ground_items: Array[GroundItem] = []
 var tilemap: GameTileMap
 var actions = []
 var item_types: Array[ItemType] = []
+
+var rod_node: Node3D
 
 signal game_manager_ready
 
@@ -23,11 +28,21 @@ const MOVE_KEYS: Dictionary[String, Vector2i] = {
 
 func _ready() -> void:
 	cursor = $Cursor
-	assert(cursor)
+	tooltip_label = $GUI/ToolTipLabel
+	assert(cursor and tooltip_label)
 	item_types = ItemType.load_all()
+
 	player_stats = PlayerStats.new()
+	player_stats.equipment.create_empty_slots()
 
 	player_stats.inventory.size = Vector2i(3, 3)
+	for item_t in item_types:
+		if item_t.name == "Basic Rod":
+			var initial_rod := Item.new()
+			initial_rod.item_type = item_t
+			initial_rod.quality = Item.Quality.TARNISHED
+			player_stats.inventory.add_item(Vector2i(0, 0), initial_rod)
+			break
 
 	tilemap = GameTileMap.new()
 	add_child(tilemap)
@@ -35,9 +50,9 @@ func _ready() -> void:
 
 	var p = tilemap.find_tile(Enum.TileType.FLOOR)
 	player = add_character(p, preload("res://characters/player.tscn").instantiate())
-	create_ground_item_from_type(p, item_types[0])
-	create_ground_item_from_type(p + Vector2i(0, 1), item_types[1])
-	create_ground_item_from_type(p + Vector2i(1, 1), item_types[2])
+	for i in 60:
+		create_ground_item_from_type(tilemap.find_tile(Enum.TileType.FLOOR), item_types[randi_range(0, item_types.size() - 1)])
+
 	game_manager_ready.emit()
 
 func _process(delta: float) -> void:
@@ -52,6 +67,13 @@ func _process(delta: float) -> void:
 	# Update cursor
 	cursor_tile = get_mouse_tile()
 	cursor.global_position = GameTileMap.to_scene_pos(cursor_tile)
+	var item_at_cursor = get_item_at(cursor_tile)
+	if item_at_cursor and cursor_tile.distance_squared_to(player.map_position) <= PICKUP_DIST_SQ:
+		tooltip_label.visible = true
+		tooltip_label.text = item_at_cursor.item.item_type.name
+		tooltip_label.position = get_viewport().get_mouse_position()
+	else:
+		tooltip_label.visible = false
 
 	# Listen to player input
 	if actions.is_empty():
@@ -67,18 +89,19 @@ func _process(delta: float) -> void:
 				actions.append(MoveAction.new(player, old_position, final_position, direction))
 				break
 			elif Input.is_key_pressed(KEY_G):
-				var ground_item = get_item_at(player.map_position)
-				if ground_item:
-					var slot = player_stats.inventory.get_free_slot_for_item(ground_item.item)
-					if slot != Inventory.INVALID_SLOT:
-						player_stats.inventory.add_item(slot, ground_item.item)
-						ground_items.erase(ground_item)
-						ground_item.queue_free()
+				pick_up_ground_item(get_item_at(player.map_position))
 
 	# Handle character idle animations
 	for character in characters:
 		if actions.all(func (a): return a.character != character):
 			character.play_idle()
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.pressed and event.button_index == 1:
+			var item_at_cursor = get_item_at(cursor_tile)
+			if item_at_cursor and cursor_tile.distance_squared_to(player.map_position) <= PICKUP_DIST_SQ:
+				pick_up_ground_item(item_at_cursor)
 
 func generate_map() -> void:
 	var width = 50
@@ -125,3 +148,28 @@ func get_item_at(pos: Vector2i) -> GroundItem:
 		if ground_item.map_position == pos:
 			return ground_item
 	return null
+
+# Tries to add a non-inventory item to inventory, otherwise drops it to player's feet
+func try_add_item(item: Item) -> void:
+	var slot = player_stats.inventory.get_free_slot_for_item(item)
+	if slot != Inventory.INVALID_SLOT:
+		player_stats.inventory.add_item(slot, item)
+	else:
+		create_ground_item(player.map_position, item)
+
+func set_player_unarmed(is_unarmed: bool) -> void:
+	player.unarmed = is_unarmed
+	if is_unarmed and rod_node:
+		rod_node.free()
+	elif !is_unarmed and !rod_node:
+		rod_node = preload("res://models/rod_scene.tscn").instantiate()
+		player.find_child("HandContainer").add_child(rod_node)
+
+func pick_up_ground_item(ground_item: GroundItem) -> void:
+	if !ground_item:
+		return
+	var slot = player_stats.inventory.get_free_slot_for_item(ground_item.item)
+	if slot != Inventory.INVALID_SLOT:
+		player_stats.inventory.add_item(slot, ground_item.item)
+		ground_items.erase(ground_item)
+		ground_item.queue_free()

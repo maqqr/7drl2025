@@ -37,6 +37,10 @@ func get_panels():
 	return [material1_panel, material2_panel, result_panel, break_panel]
 
 func drag_ended_on_panel(target_panel: CraftingPanel, item: Item) -> bool:
+	if inventory.items.find(item) == -1:
+		return false
+
+	print("craft panel item drag end, inventory size ", inventory.items.size())
 	if target_panel == material1_panel or target_panel == material2_panel:
 		target_panel.set_sprite_from_item(game_manager, item)
 		if target_panel == material1_panel:
@@ -57,9 +61,11 @@ func drag_ended_on_panel(target_panel: CraftingPanel, item: Item) -> bool:
 
 	if target_panel == break_panel:
 		if !item.item_type.breakdown.is_empty():
+			var old_slot = item.inventory_slot
 			inventory.remove_item(item)
 			var new_item = breakdown(item)
-			inventory.add_item(item.inventory_slot, new_item)
+			inventory.add_item(old_slot, new_item)
+			return true
 
 	return false
 
@@ -85,7 +91,16 @@ func on_inventory_change() -> void:
 	result_panel.set_sprite_from_item(game_manager, null)
 
 func breakdown(item: Item) -> Item:
-	var new_item_type = item.item_type.breakdown[randi_range(0, item.item_type.breakdown.size() - 1)]
+	var index = randi_range(0, item.item_type.breakdown.size() - 1)
+	var new_item_type = item.item_type.breakdown[index]
+
+	if !game_manager.player_stats.breakdown_knowledge.has(item.item_type):
+		game_manager.player_stats.breakdown_knowledge[item.item_type] = []
+		print("New knowledge array")
+
+	if game_manager.player_stats.breakdown_knowledge[item.item_type].find(new_item_type) == -1:
+		game_manager.player_stats.breakdown_knowledge[item.item_type].append(new_item_type)
+		print("New knowledge appended")
 
 	var new_item = Item.new()
 	new_item.item_type = new_item_type
@@ -122,4 +137,5 @@ func combine(item1: Item, item2: Item) -> Item:
 	attr.type_flag &= ~ItemAttributes.TypeFlag.FISH
 	attr.type_flag &= ~ItemAttributes.TypeFlag.MATERIAL
 
+	result.inventory_slot = Inventory.INVALID_SLOT
 	return result

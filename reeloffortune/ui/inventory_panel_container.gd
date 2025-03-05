@@ -39,7 +39,9 @@ func drag_ended_on_panel(target_panel: ItemPanel, item: Item) -> bool:
 
 		if slot != Inventory.INVALID_SLOT:
 			inventory.add_item(slot, item)
-		return true
+			return true
+		else:
+			return false
 
 func set_inventory(inventory: Inventory) -> void:
 	self.inventory = inventory

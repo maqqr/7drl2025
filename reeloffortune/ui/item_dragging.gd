@@ -16,11 +16,13 @@ class DragOperation:
 		drag_sprite.z_index = 1
 
 	func start(parent: Control):
-		original_slot_sprite.visible = false
+		if original_slot_sprite:
+			original_slot_sprite.visible = false
 		parent.add_child(drag_sprite)
 
 	func cancel():
-		original_slot_sprite.visible = true
+		if original_slot_sprite:
+			original_slot_sprite.visible = true
 		drag_sprite.queue_free()
 
 	func stop():
@@ -31,6 +33,8 @@ var drag_operation: DragOperation
 var inventory: Inventory
 
 var panel_providers = []
+
+signal drag_pre_end(item: Item, success: bool)
 
 func _ready() -> void:
 	game_manager.game_manager_ready.connect(func (): set_inventory(game_manager.player_stats.inventory))
@@ -54,14 +58,21 @@ func _process(_delta: float) -> void:
 				success = target_panel_provider.drag_ended_on_panel(target_panel, drag_operation.item)
 			else:
 				# TODO: Drop signal
-				var pos = game_manager.cursor_tile if game_manager.tilemap.is_walkable(game_manager.cursor_tile) else game_manager.player.map_position
+				var pos = game_manager.cursor_tile if game_manager.tilemap.is_walkable(game_manager.cursor_tile) and game_manager.cursor_tile.distance_squared_to(game_manager.player.map_position) <= game_manager.PICKUP_DIST_SQ else game_manager.player.map_position
 				game_manager.create_ground_item(pos, drag_operation.item)
 				inventory.remove_item(drag_operation.item)
 				success = true
 
+			drag_pre_end.emit(target_panel, drag_operation.item, success)
+
 			if success:
 				drag_operation.stop()
 			else:
+				# Try to rescue a crafted item
+				print("Item rescue")
+				var not_equipped = !game_manager.player_stats.equipment.is_equipped(drag_operation.item)
+				if not_equipped and drag_operation.item.inventory_slot == Inventory.INVALID_SLOT:
+					game_manager.try_add_item(drag_operation.item)
 				drag_operation.cancel()
 			drag_operation = null
 

@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="ItemType" load_steps=8 format=3 uid="uid://cyuc2rpi2gx77"]
+
+[ext_resource type="Script" uid="uid://cqv108j88rxjw" path="res://inventory/item_attributes.gd" id="1_5c0pj"]
+[ext_resource type="Script" uid="uid://da6j1eiq0ev37" path="res://inventory/item_type.gd" id="1_igdus"]
+[ext_resource type="Resource" uid="uid://i83r3pebmred" path="res://inventory/items/fish_bone.tres" id="3_pmld8"]
+[ext_resource type="Texture2D" uid="uid://cg5hin2uwmihe" path="res://sprites/cinderfin.png" id="3_sxpvb"]
+[ext_resource type="Resource" uid="uid://c7h8pf1numl1s" path="res://inventory/items/warm_scales.tres" id="4_ves6q"]
+[ext_resource type="Resource" uid="uid://b012tmtrv8ba0" path="res://inventory/items/meat.tres" id="5_n6q3e"]
+
+[sub_resource type="Resource" id="Resource_sxpvb"]
+script = ExtResource("1_5c0pj")
+type_flag = 64
+size = 3
+attraction_flag = 8
+color = 0
+stickyness = 0
+sharpness = 0
+temperature = 2
+metadata/_custom_type_script = "uid://cqv108j88rxjw"
+
+[resource]
+script = ExtResource("1_igdus")
+name = "Cinderfin"
+base_value = 45
+item_size = Vector2i(2, 1)
+attributes = SubResource("Resource_sxpvb")
+sprite = ExtResource("3_sxpvb")
+breakdown = Array[ExtResource("1_igdus")]([ExtResource("3_pmld8"), ExtResource("4_ves6q"), ExtResource("5_n6q3e")])
+metadata/_custom_type_script = "uid://da6j1eiq0ev37"

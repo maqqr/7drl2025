@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="ItemType" load_steps=6 format=3 uid="uid://dq7qweddo4kk4"]
+
+[ext_resource type="Script" uid="uid://cqv108j88rxjw" path="res://inventory/item_attributes.gd" id="1_qa6pp"]
+[ext_resource type="Script" uid="uid://da6j1eiq0ev37" path="res://inventory/item_type.gd" id="1_yu85h"]
+[ext_resource type="Texture2D" uid="uid://dieepj4motg2i" path="res://sprites/minnow.png" id="3_1eovw"]
+[ext_resource type="Resource" uid="uid://i83r3pebmred" path="res://inventory/items/fish_bone.tres" id="3_vplfr"]
+
+[sub_resource type="Resource" id="Resource_1eovw"]
+script = ExtResource("1_qa6pp")
+type_flag = 67
+size = 2
+attraction_flag = 8
+color = 0
+stickyness = 2
+sharpness = 0
+temperature = 1
+metadata/_custom_type_script = "uid://cqv108j88rxjw"
+
+[resource]
+script = ExtResource("1_yu85h")
+name = "Ice Shard Minnow"
+base_value = 12
+item_size = Vector2i(1, 1)
+attributes = SubResource("Resource_1eovw")
+sprite = ExtResource("3_1eovw")
+breakdown = Array[ExtResource("1_yu85h")]([ExtResource("3_vplfr")])
+metadata/_custom_type_script = "uid://da6j1eiq0ev37"
