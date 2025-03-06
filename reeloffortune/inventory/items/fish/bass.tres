@@ -9,7 +9,7 @@
 
 [sub_resource type="Resource" id="Resource_c8ofx"]
 script = ExtResource("1_is7sk")
-type_flag = 65
+type_flag = 64
 size = 3
 attraction_flag = 8
 color = 0
@@ -25,5 +25,8 @@ base_value = 22
 item_size = Vector2i(2, 1)
 attributes = SubResource("Resource_c8ofx")
 sprite = ExtResource("4_1qvee")
+stamina_gain = 0
+eat_msg = ""
+an_article = true
 breakdown = Array[ExtResource("1_gb1x2")]([ExtResource("3_lv78h"), ExtResource("4_lv78h"), ExtResource("5_1qvee")])
 metadata/_custom_type_script = "uid://da6j1eiq0ev37"

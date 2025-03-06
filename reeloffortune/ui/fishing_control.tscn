@@ -1,0 +1,71 @@
+[gd_scene load_steps=4 format=3 uid="uid://cygl8e0qax2o6"]
+
+[ext_resource type="Script" uid="uid://p4nc6xlyxjob" path="res://ui/fishing_control.gd" id="1_k0f7t"]
+[ext_resource type="FontFile" uid="uid://c3ty6ucyesqug" path="res://ui_theme/EldringCondensed.ttf" id="1_np7jc"]
+[ext_resource type="Texture2D" uid="uid://dieepj4motg2i" path="res://sprites/minnow.png" id="2_k0f7t"]
+
+[node name="FishingControl" type="Control"]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = -20.0
+grow_horizontal = 2
+script = ExtResource("1_k0f7t")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -37.0
+offset_right = 37.0
+offset_bottom = 52.0
+grow_horizontal = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_np7jc")
+text = "Hold space or left mouse button to reel in."
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="Line2D" type="Line2D" parent="PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Panel"]
+points = PackedVector2Array(0, 0, 0, 0)
+width = 2.0
+default_color = Color(0.484375, 0.484375, 0.484375, 1)
+
+[node name="FishSprite" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Panel"]
+position = Vector2(262, 33)
+scale = Vector2(2, 2)
+texture = ExtResource("2_k0f7t")
+
+[node name="ProgressPanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(460, 0)
+layout_mode = 2
+theme_type_variation = &"PanelContainerSimple"
+
+[node name="GreenPanel" type="Panel" parent="."]
+self_modulate = Color(0.532548, 1, 0.229567, 1)
+layout_mode = 1
+offset_top = 120.0
+offset_right = 64.0
+offset_bottom = 144.0
+theme_type_variation = &"PanelSimple"

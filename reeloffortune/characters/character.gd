@@ -1,11 +1,13 @@
 class_name Character
 extends Node3D
 
-@export var health: int
+@export var stamina: int
 @export var stats: CharacterStats
 @export var map_position: Vector2i
 @export var unarmed: bool = true
 var animation_player: AnimationPlayer
+
+signal stamina_changed(old_value: int, new_value: int)
 
 func _ready() -> void:
 	animation_player = find_child("AnimationPlayer")
@@ -26,3 +28,8 @@ func get_idle_animation_name() -> StringName:
 
 func get_walk_animation_name() -> StringName:
 	return &"Armature|walk" if !unarmed else &"Armature|walk_unarmed"
+
+func set_stamina(value: int) -> void:
+	var old = stamina
+	stamina = clamp(value, 0, stats.max_stamina)
+	stamina_changed.emit(old, stamina)

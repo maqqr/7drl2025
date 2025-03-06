@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="FishEntry" load_steps=3 format=3 uid="uid://dm2kskdgi5nto"]
+
+[ext_resource type="Script" uid="uid://dr2ka41g8i8tg" path="res://fish/fish_entry.gd" id="1_a2c0u"]
+[ext_resource type="Resource" uid="uid://dq7qweddo4kk4" path="res://inventory/items/fish/minnow.tres" id="1_yqjpc"]
+
+[resource]
+script = ExtResource("1_a2c0u")
+item_type = ExtResource("1_yqjpc")
+attractions = Array[int]([12, 0])
+minor_attractions = Array[int]([6, 10])
+strength = 0.5
+stamina = 4.0
+description = ""
+metadata/_custom_type_script = "uid://dr2ka41g8i8tg"

@@ -6,7 +6,7 @@
 
 [sub_resource type="Resource" id="Resource_vus2i"]
 script = ExtResource("1_fosdq")
-type_flag = 3
+type_flag = 11
 size = 0
 attraction_flag = 0
 color = 2
@@ -22,5 +22,8 @@ base_value = 3
 item_size = Vector2i(1, 1)
 attributes = SubResource("Resource_vus2i")
 sprite = ExtResource("3_83jwr")
+stamina_gain = 2
+eat_msg = "Tastes like fish egg, with a hint of iron."
+an_article = true
 breakdown = Array[ExtResource("1_uomw8")]([])
 metadata/_custom_type_script = "uid://da6j1eiq0ev37"

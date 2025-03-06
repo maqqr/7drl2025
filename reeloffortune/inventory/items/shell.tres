@@ -22,5 +22,7 @@ base_value = 3
 item_size = Vector2i(1, 1)
 attributes = SubResource("Resource_1cngb")
 sprite = ExtResource("3_ybc1i")
+stamina_gain = 0
+eat_msg = ""
 breakdown = Array[ExtResource("1_f1hyv")]([])
 metadata/_custom_type_script = "uid://da6j1eiq0ev37"

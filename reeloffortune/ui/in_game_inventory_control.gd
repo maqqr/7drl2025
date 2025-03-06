@@ -16,6 +16,7 @@ func _ready() -> void:
 	y_close = position.y
 	assert(game_manager && crafting_control)
 	game_manager.game_manager_ready.connect(on_game_manager_ready)
+	game_manager.fishing_started.connect(func (): if open: toggle_inventory())
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("inventory"):
@@ -26,6 +27,9 @@ func on_game_manager_ready() -> void:
 	y_open = y_close - panel_container.custom_minimum_size.y
 
 func toggle_inventory() -> void:
+	if !game_manager.allow_input:
+		return
+
 	open = !open
 	var target_pos = Vector2(x_position, y_open) if open else Vector2(x_position, y_close)
 	var tween = get_tree().create_tween().bind_node(self).set_trans(Tween.TRANS_QUART)

@@ -6,7 +6,7 @@
 
 [sub_resource type="Resource" id="Resource_8yxws"]
 script = ExtResource("1_j5nwi")
-type_flag = 2
+type_flag = 10
 size = 0
 attraction_flag = 0
 color = 0
@@ -22,5 +22,8 @@ base_value = 2
 item_size = Vector2i(1, 1)
 attributes = SubResource("Resource_8yxws")
 sprite = ExtResource("3_fdg8p")
+stamina_gain = 1
+eat_msg = "It gets stuck in your throat on the way down."
+an_article = false
 breakdown = Array[ExtResource("2_fdg8p")]([])
 metadata/_custom_type_script = "uid://da6j1eiq0ev37"

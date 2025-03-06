@@ -55,5 +55,6 @@ func make_tooltip(game_manager: GameManager) -> String:
 		"tags": ", ".join(tags),
 		"break": ("\nIt breaks down into:\n - " + ", ".join(breakdown)) if !breakdown.is_empty() else "",
 		"value": get_value(),
+		"stam": "" if item_type.stamina_gain == 0 else "\nRestores " + str(item_type.stamina_gain) + " stamina."
 	}
-	return "[b]{name}[/b] ([i]{qual}[/i])\nValue: {value}\nIt is {size}-sized.{craf}{break}\n\n({tags})".format(info)
+	return "[b]{name}[/b] ([i]{qual}[/i])\nValue: {value}\nIt is {size}-sized.{stam}{craf}{break}\n\n({tags})".format(info)

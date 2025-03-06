@@ -17,6 +17,18 @@ var material1: Item
 var material2: Item
 var result: Item
 
+const RANDOM_EAT_MSGS = [
+	"Sweet? Fishy? Is that... metal? You're unsure.",
+	"It tastes... indescribable.",
+	"It tingles, then numbs. What was that flavor?",
+	"A subtle spice, then a slick chill.",
+	"Fruity, then... earthy? Your senses are confused.",
+	"It pulses slightly. Is it alive? You can't tell.",
+	"A faint glow, a metallic tang. You're perplexed.",
+	"Sweet, then bitter, then... nothing? You feel disoriented.",
+	"A strange texture, a shifting taste. You feel wary.",
+]
+
 func _ready() -> void:
 	x_close = global_position.x
 	x_open = x_close - $PanelContainer.get_rect().size.x
@@ -40,7 +52,6 @@ func drag_ended_on_panel(target_panel: CraftingPanel, item: Item) -> bool:
 	if inventory.items.find(item) == -1:
 		return false
 
-	print("craft panel item drag end, inventory size ", inventory.items.size())
 	if target_panel == material1_panel or target_panel == material2_panel:
 		target_panel.set_sprite_from_item(game_manager, item)
 		if target_panel == material1_panel:
@@ -96,11 +107,10 @@ func breakdown(item: Item) -> Item:
 
 	if !game_manager.player_stats.breakdown_knowledge.has(item.item_type):
 		game_manager.player_stats.breakdown_knowledge[item.item_type] = []
-		print("New knowledge array")
 
 	if game_manager.player_stats.breakdown_knowledge[item.item_type].find(new_item_type) == -1:
 		game_manager.player_stats.breakdown_knowledge[item.item_type].append(new_item_type)
-		print("New knowledge appended")
+		game_manager.message_buffer.add_message(MessageBuffer.MSG_LEARN.format({ "item": item.item_type.name, "result": new_item_type.name }))
 
 	var new_item = Item.new()
 	new_item.item_type = new_item_type
@@ -120,6 +130,8 @@ func combine(item1: Item, item2: Item) -> Item:
 	result.item_type.item_size = Vector2i(1, 1)
 	result.item_type.attributes = ItemAttributes.new()
 	result.item_type.sprite = preload("res://sprites/bait.png")
+	result.item_type.stamina_gain = material1.item_type.stamina_gain + material2.item_type.stamina_gain
+	result.item_type.eat_msg = RANDOM_EAT_MSGS[randi_range(0, RANDOM_EAT_MSGS.size() - 1)]
 
 	var attr = result.item_type.attributes
 

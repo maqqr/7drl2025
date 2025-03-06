@@ -17,10 +17,13 @@ metadata/_custom_type_script = "uid://cqv108j88rxjw"
 
 [resource]
 script = ExtResource("1_wyvvm")
-name = "Warm scales"
+name = "Warm Scales"
 base_value = 8
 item_size = Vector2i(1, 1)
 attributes = SubResource("Resource_qxn08")
 sprite = ExtResource("3_mrs72")
+stamina_gain = 0
+eat_msg = ""
+an_article = false
 breakdown = Array[ExtResource("1_wyvvm")]([])
 metadata/_custom_type_script = "uid://da6j1eiq0ev37"

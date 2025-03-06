@@ -6,6 +6,9 @@ extends Resource
 @export var item_size: Vector2i = Vector2i(1, 1)
 @export var attributes: ItemAttributes
 @export var sprite: Texture
+@export var stamina_gain: int
+@export_multiline var eat_msg: String
+@export var an_article: bool
 
 @export var breakdown: Array[ItemType]
 
@@ -33,9 +36,15 @@ static func load_all() -> Array[ItemType]:
 	for item in items:
 		valid_ids.append(item.get_instance_id())
 
-	# Check that breakdowns do not contain custom item types
+	# Item config validation
 	for item in items:
+		# Check that breakdowns do not contain custom item types
 		for i in item.breakdown:
 			assert(valid_ids.find(i.get_instance_id()) != -1)
+
+		# Consumables need stamina gain and message
+		if item.attributes.type_flag & ItemAttributes.TypeFlag.CONSUMABLE:
+			assert(item.stamina_gain > 0)
+			assert(!item.eat_msg.is_empty())
 
 	return items

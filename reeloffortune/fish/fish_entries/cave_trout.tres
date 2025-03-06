@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="FishEntry" load_steps=3 format=3 uid="uid://wxstyujje1ry"]
+
+[ext_resource type="Resource" uid="uid://cuhrxdwyroc6p" path="res://inventory/items/fish/cave_trout.tres" id="1_tnksw"]
+[ext_resource type="Script" uid="uid://dr2ka41g8i8tg" path="res://fish/fish_entry.gd" id="2_julbh"]
+
+[resource]
+script = ExtResource("2_julbh")
+item_type = ExtResource("1_tnksw")
+attractions = Array[int]([3, 6])
+minor_attractions = Array[int]([0, 10, 7])
+strength = 1.5
+stamina = 10.0
+description = ""
+metadata/_custom_type_script = "uid://dr2ka41g8i8tg"

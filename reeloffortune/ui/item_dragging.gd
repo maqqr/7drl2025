@@ -77,6 +77,9 @@ func _process(_delta: float) -> void:
 			drag_operation = null
 
 func start_drag(item: Item, original_slot_sprite: Sprite2D) -> void:
+	if !game_manager.allow_input:
+		return
+
 	assert(!drag_operation)
 	drag_operation = DragOperation.new(item, original_slot_sprite)
 	drag_operation.start(self)

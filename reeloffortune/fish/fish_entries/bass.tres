@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="FishEntry" load_steps=3 format=3 uid="uid://cdenw2sks7308"]
+
+[ext_resource type="Script" uid="uid://dr2ka41g8i8tg" path="res://fish/fish_entry.gd" id="1_6piua"]
+[ext_resource type="Resource" uid="uid://jrjkjyx7souh" path="res://inventory/items/fish/bass.tres" id="1_b3x8m"]
+
+[resource]
+script = ExtResource("1_6piua")
+item_type = ExtResource("1_b3x8m")
+attractions = Array[int]([4, 8])
+minor_attractions = Array[int]([1, 3, 5])
+strength = 1.0
+stamina = 6.0
+description = ""
+metadata/_custom_type_script = "uid://dr2ka41g8i8tg"

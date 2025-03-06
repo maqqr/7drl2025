@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bdwi6sejaofiw"]
+
+[node name="RichTextLabel" type="RichTextLabel"]
+clip_contents = false
+custom_minimum_size = Vector2(800, 24)
+mouse_filter = 2
+bbcode_enabled = true
+text = "[i]You need a fishing rod.[/i]"
+scroll_active = false
+autowrap_mode = 0

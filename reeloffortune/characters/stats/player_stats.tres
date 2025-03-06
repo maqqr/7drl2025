@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("2_o2582")
 name = "Player"
-max_health = 10
+max_stamina = 20
 damage = 1
 drop_table = Array[ExtResource("1_lf2j8")]([])
 metadata/_custom_type_script = "uid://d1hsaenf4s8no"
