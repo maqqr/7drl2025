@@ -43,9 +43,10 @@ func drag_ended_on_panel(target_panel: ItemPanel, item: Item) -> bool:
 		else:
 			return false
 
-func set_inventory(inventory: Inventory) -> void:
-	self.inventory = inventory
-	inventory.inventory_changed.connect(on_inventory_change)
+func set_inventory(p_inventory: Inventory) -> void:
+	self.inventory = p_inventory
+	self.inventory.inventory_changed.connect(on_inventory_change)
+	self.inventory.inventory_size_changed.connect(on_inventory_size_change)
 	on_inventory_size_change()
 	on_inventory_change()
 

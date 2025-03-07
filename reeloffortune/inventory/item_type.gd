@@ -9,6 +9,7 @@ extends Resource
 @export var stamina_gain: int
 @export_multiline var eat_msg: String
 @export var an_article: bool
+@export var is_legendary_fish: bool
 
 @export var breakdown: Array[ItemType]
 

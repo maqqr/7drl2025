@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dr7u7823m0eiy"]
+
+[ext_resource type="Texture2D" uid="uid://c2vxrt73deow1" path="res://sprites/bubble_small.png" id="1_el6si"]
+[ext_resource type="Script" uid="uid://bssv42taen6dy" path="res://ui/bubble.gd" id="2_xvw8c"]
+
+[node name="BubbleSprite" type="Sprite2D"]
+self_modulate = Color(0.5, 0.5, 0.5, 1)
+scale = Vector2(2, 2)
+texture = ExtResource("1_el6si")
+script = ExtResource("2_xvw8c")

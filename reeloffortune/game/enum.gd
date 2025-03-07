@@ -3,4 +3,5 @@ enum TileType {
 	WALL,
 	FLOOR,
 	WATER,
+	DOWNSTAIRS,
 }

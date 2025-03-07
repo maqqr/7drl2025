@@ -39,6 +39,7 @@ static func attraction_str(a: Attraction):
 @export var item_type: ItemType
 @export var attractions: Array[Attraction]
 @export var minor_attractions: Array[Attraction]
+@export var min_depth: int
 @export var strength: float
 @export var stamina: float
 @export_multiline var description: String

@@ -28,5 +28,6 @@ sprite = ExtResource("4_1qvee")
 stamina_gain = 0
 eat_msg = ""
 an_article = true
+is_legendary_fish = false
 breakdown = Array[ExtResource("1_gb1x2")]([ExtResource("3_lv78h"), ExtResource("4_lv78h"), ExtResource("5_1qvee")])
 metadata/_custom_type_script = "uid://da6j1eiq0ev37"

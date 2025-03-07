@@ -24,7 +24,6 @@ MusicManager="*res://game/music_manager.gd"
 window/size/viewport_width=800
 window/size/viewport_height=500
 window/stretch/mode="viewport"
-window/stretch/aspect="keep_width"
 window/stretch/scale_mode="integer"
 
 [editor]

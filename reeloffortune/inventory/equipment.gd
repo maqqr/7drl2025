@@ -21,3 +21,8 @@ func set_item_to_slot(type_flag: ItemAttributes.TypeFlag, item: Item):
 	assert(SLOTS.find(type_flag) != -1)
 	slot[type_flag] = item
 	equipment_changed.emit(type_flag, item)
+
+func remove_item(item: Item):
+	for s in SLOTS:
+		if slot[s] == item:
+			slot[s] = null

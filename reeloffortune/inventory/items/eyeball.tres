@@ -25,5 +25,6 @@ sprite = ExtResource("3_83jwr")
 stamina_gain = 2
 eat_msg = "Tastes like fish egg, with a hint of iron."
 an_article = true
+is_legendary_fish = false
 breakdown = Array[ExtResource("1_uomw8")]([])
 metadata/_custom_type_script = "uid://da6j1eiq0ev37"

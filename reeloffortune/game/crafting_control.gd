@@ -53,6 +53,10 @@ func drag_ended_on_panel(target_panel: CraftingPanel, item: Item) -> bool:
 		return false
 
 	if target_panel == material1_panel or target_panel == material2_panel:
+		if !(item.item_type.attributes.type_flag & ItemAttributes.TypeFlag.MATERIAL):
+			game_manager.message_buffer.add_message(MessageBuffer.MSG_IS_NOT_MAT.format({ "item": item.item_type.name }))
+			return false
+
 		target_panel.set_sprite_from_item(game_manager, item)
 		if target_panel == material1_panel:
 			material1 = item
@@ -125,7 +129,7 @@ func combine(item1: Item, item2: Item) -> Item:
 	
 	# Create new custom item type
 	result.item_type = ItemType.new()
-	result.item_type.name = "Crafted bait"
+	result.item_type.name = "Crafted Bait"
 	result.item_type.base_value = int((material1.item_type.base_value + material2.item_type.base_value) * 0.5)
 	result.item_type.item_size = Vector2i(1, 1)
 	result.item_type.attributes = ItemAttributes.new()

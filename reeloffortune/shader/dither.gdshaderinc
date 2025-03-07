@@ -1,3 +1,4 @@
+// https://godotshaders.com/shader/arbitrary-color-reduction-ordered-dithering/
 #include "res://shader/quantize.gdshaderinc"
 group_uniforms Dithering;
 uniform bool dither_enabled = false;

@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://dx021aa4tejww"]
+[gd_scene load_steps=13 format=3 uid="uid://dx021aa4tejww"]
 
 [ext_resource type="Script" uid="uid://dvrl1vh7ug3qs" path="res://game/game_manager.gd" id="1_hu71m"]
 [ext_resource type="Shader" uid="uid://vw787p7laj5g" path="res://shader/colorrect_dither.gdshader" id="2_vasa2"]
 [ext_resource type="PackedScene" uid="uid://dqw71n8563mph" path="res://ui/in_game_inventory_control.tscn" id="3_h7iqs"]
 [ext_resource type="PackedScene" uid="uid://clmb0ahu2wc0x" path="res://ui/crafting_control.tscn" id="4_dxrkv"]
+[ext_resource type="PackedScene" uid="uid://c62hdy2mscvx4" path="res://ui/shop_control.tscn" id="4_l8g03"]
 [ext_resource type="PackedScene" uid="uid://bv7byv1367fl7" path="res://ui/equip_slot_panel_container.tscn" id="5_dxrkv"]
 [ext_resource type="Script" uid="uid://senrvwbpipud" path="res://ui/status_panel_container.gd" id="5_u5opy"]
 [ext_resource type="Script" uid="uid://dalvnlugoin2q" path="res://ui/item_dragging.gd" id="6_dakft"]
@@ -85,6 +86,8 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
 
+[node name="ShopControl" parent="GUI" instance=ExtResource("4_l8g03")]
+
 [node name="MessageBuffer" type="Control" parent="GUI"]
 layout_mode = 3
 anchors_preset = 0
@@ -118,9 +121,9 @@ size_flags_horizontal = 3
 size_flags_vertical = 8
 script = ExtResource("5_u5opy")
 equip_panels = [NodePath("HBoxContainer/EquipSlotPanelContainer"), NodePath("HBoxContainer/EquipSlotPanelContainer2"), NodePath("HBoxContainer/EquipSlotPanelContainer3"), NodePath("HBoxContainer/EquipSlotPanelContainer4"), NodePath("HBoxContainer/EquipSlotPanelContainer5")]
-stamina_label = NodePath("HBoxContainer/VBoxContainer/Label")
-money_label = NodePath("HBoxContainer/VBoxContainer/Label2")
-depth_label = NodePath("HBoxContainer/VBoxContainer/Label3")
+stamina_label = NodePath("HBoxContainer/VBoxContainer/StaminaRichTextLabel")
+money_label = NodePath("HBoxContainer/VBoxContainer/MoneyRichTextLabel")
+depth_label = NodePath("HBoxContainer/VBoxContainer/DepthRichTextLabel")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="GUI/StatusPanelContainer"]
 layout_mode = 2
@@ -130,17 +133,26 @@ layout_mode = 2
 theme_override_constants/separation = -2
 alignment = 1
 
-[node name="Label" type="Label" parent="GUI/StatusPanelContainer/HBoxContainer/VBoxContainer"]
+[node name="StaminaRichTextLabel" type="RichTextLabel" parent="GUI/StatusPanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "Stamina: 20/20"
+bbcode_enabled = true
+text = "Stamina:"
+fit_content = true
+autowrap_mode = 0
 
-[node name="Label2" type="Label" parent="GUI/StatusPanelContainer/HBoxContainer/VBoxContainer"]
+[node name="MoneyRichTextLabel" type="RichTextLabel" parent="GUI/StatusPanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "Money: 0"
+bbcode_enabled = true
+text = "Money:"
+fit_content = true
+autowrap_mode = 0
 
-[node name="Label3" type="Label" parent="GUI/StatusPanelContainer/HBoxContainer/VBoxContainer"]
+[node name="DepthRichTextLabel" type="RichTextLabel" parent="GUI/StatusPanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "Depth: 1"
+bbcode_enabled = true
+text = "Depth:"
+fit_content = true
+autowrap_mode = 0
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="GUI/StatusPanelContainer/HBoxContainer"]
 layout_mode = 2

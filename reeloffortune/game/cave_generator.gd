@@ -38,6 +38,20 @@ class Map:
 			for x in range(1, width - 1):
 				self.set_tile(Vector2i(x, y), Enum.TileType.WALL if rng.randf() < wall_probability else Enum.TileType.FLOOR)
 
+	func find_tile(tile_type: Enum.TileType, take_first: bool = false) -> Vector2i:
+		var candidates = []
+		for y in height:
+			for x in width:
+				var pos = Vector2i(x, y)
+				if get_tile(pos) == tile_type:
+					if take_first:
+						return pos
+					candidates.append(pos)
+		if candidates.is_empty():
+			push_error("Tile " + str(tile_type) + " not found during map generation")
+			return Vector2i.ZERO
+		return candidates[randi_range(0, candidates.size() - 1)]
+
 	func iterate(previous_map: Map, wall_rule: Callable) -> void:
 		for y in range(1, height - 1):
 			for x in range(1, width - 1):
@@ -77,5 +91,34 @@ static func generate(width: int, height: int) -> PackedInt32Array:
 			var pos = Vector2i(x, y)
 			if previous_map.count_nearby(pos, 3, Enum.TileType.WALL) <= 2:
 				new_map.set_tile(pos, Enum.TileType.WATER)
+
+	# Add downstairs
+	while true:
+		var pos = new_map.find_tile(Enum.TileType.FLOOR)
+
+		# Do not place near the edges of the map
+		if pos.x <= 2 or pos.x >= width - 1 or pos.y <= 2 or pos.y >= height - 1:
+			continue
+
+		# Downstairs are not very visible when placed above a wall tile
+		if new_map.get_tile(pos + Vector2i(0, 1)) == Enum.TileType.WALL:
+			continue
+
+		# Water looks weird next to stairs
+		var found_water = false
+		for d in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
+			if new_map.get_tile(pos + d) == Enum.TileType.WATER:
+				found_water = true
+				break
+		if found_water:
+			continue
+
+		# Make surrounding tiles floor
+		for y in range(-1, 2):
+			for x in range(-1, 2):
+				new_map.set_tile(pos + Vector2i(x, y), Enum.TileType.FLOOR)
+
+		new_map.set_tile(pos, Enum.TileType.DOWNSTAIRS)
+		break
 
 	return new_map.tiles

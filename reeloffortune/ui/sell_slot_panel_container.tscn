@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://dawnrtgls4jiq"]
+
+[ext_resource type="Script" uid="uid://c60snh35ounis" path="res://ui/sell_slot_panel_container.gd" id="1_i3j8s"]
+
+[node name="SellSlotPanelContainer" type="PanelContainer"]
+self_modulate = Color(0.623529, 0.623529, 0.623529, 1)
+custom_minimum_size = Vector2(80, 80)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"PanelContainerSimple"
+script = ExtResource("1_i3j8s")
+metadata/_custom_type_script = "uid://c60snh35ounis"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+self_modulate = Color(0.623529, 0.623529, 0.623529, 1)
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+text = "[i]Sell[/i]"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1

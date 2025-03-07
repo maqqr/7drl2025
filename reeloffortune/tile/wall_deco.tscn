@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2722eg5lor3y"]
+
+[ext_resource type="PackedScene" uid="uid://0b73cgxj6ucu" path="res://models/deco.fbx" id="1_7rwfe"]
+
+[node name="WallDeco" type="Node3D"]
+
+[node name="deco" parent="." instance=ExtResource("1_7rwfe")]

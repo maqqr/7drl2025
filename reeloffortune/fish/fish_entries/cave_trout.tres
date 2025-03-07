@@ -8,6 +8,7 @@ script = ExtResource("2_julbh")
 item_type = ExtResource("1_tnksw")
 attractions = Array[int]([3, 6])
 minor_attractions = Array[int]([0, 10, 7])
+min_depth = 2
 strength = 1.5
 stamina = 10.0
 description = ""

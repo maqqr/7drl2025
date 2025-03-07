@@ -6,12 +6,12 @@ class DragOperation:
 	var original_slot_sprite: Sprite2D
 	var drag_sprite: Sprite2D
 
-	func _init(item: Item, original_slot_sprite: Sprite2D):
-		assert(item && original_slot_sprite)
-		self.item = item
-		self.original_slot_sprite = original_slot_sprite
+	func _init(p_item: Item, p_original_slot_sprite: Sprite2D):
+		assert(p_item && p_original_slot_sprite)
+		self.item = p_item
+		self.original_slot_sprite = p_original_slot_sprite
 		drag_sprite = Sprite2D.new()
-		drag_sprite.texture = item.item_type.sprite
+		drag_sprite.texture = p_item.item_type.sprite
 		drag_sprite.scale = Vector2(2.0, 2.0)
 		drag_sprite.z_index = 1
 
@@ -58,10 +58,13 @@ func _process(_delta: float) -> void:
 				success = target_panel_provider.drag_ended_on_panel(target_panel, drag_operation.item)
 			else:
 				# TODO: Drop signal
-				var pos = game_manager.cursor_tile if game_manager.tilemap.is_walkable(game_manager.cursor_tile) and game_manager.cursor_tile.distance_squared_to(game_manager.player.map_position) <= game_manager.PICKUP_DIST_SQ else game_manager.player.map_position
-				game_manager.create_ground_item(pos, drag_operation.item)
-				inventory.remove_item(drag_operation.item)
-				success = true
+				if game_manager.allow_input_mode == GameManager.InputMode.ALLOWED: # This is a hack to prevent dropping items in shop
+					var pos = game_manager.cursor_tile if game_manager.tilemap.is_walkable(game_manager.cursor_tile) and game_manager.cursor_tile.distance_squared_to(game_manager.player.map_position) <= game_manager.PICKUP_DIST_SQ else game_manager.player.map_position
+					game_manager.create_ground_item(pos, drag_operation.item)
+					inventory.remove_item(drag_operation.item)
+					game_manager.player_stats.equipment.remove_item(drag_operation.item)
+					game_manager.message_buffer.add_message(MessageBuffer.MSG_DROP.format({ "item": drag_operation.item.item_type.name }))
+					success = true
 
 			drag_pre_end.emit(target_panel, drag_operation.item, success)
 
@@ -77,12 +80,12 @@ func _process(_delta: float) -> void:
 			drag_operation = null
 
 func start_drag(item: Item, original_slot_sprite: Sprite2D) -> void:
-	if !game_manager.allow_input:
+	if game_manager.allow_input_mode == GameManager.InputMode.NONE:
 		return
 
 	assert(!drag_operation)
 	drag_operation = DragOperation.new(item, original_slot_sprite)
 	drag_operation.start(self)
 
-func set_inventory(inventory: Inventory) -> void:
-	self.inventory = inventory
+func set_inventory(p_inventory: Inventory) -> void:
+	self.inventory = p_inventory

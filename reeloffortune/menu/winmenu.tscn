@@ -1,0 +1,75 @@
+[gd_scene load_steps=6 format=3 uid="uid://dj2720xd2tt63"]
+
+[ext_resource type="Script" uid="uid://kmdphuaodht2" path="res://menu/winmenu.gd" id="1_1vxfb"]
+[ext_resource type="Shader" uid="uid://vw787p7laj5g" path="res://shader/colorrect_dither.gdshader" id="1_87vfi"]
+[ext_resource type="PackedScene" uid="uid://dm4cf814j7u5" path="res://models/player.fbx" id="1_bibdu"]
+[ext_resource type="Texture2D" uid="uid://cddlt0hy5dfi7" path="res://sprites/legendary.png" id="4_64k5x"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bibdu"]
+shader = ExtResource("1_87vfi")
+shader_parameter/quantize_size = 2.0
+shader_parameter/handle_scale = true
+shader_parameter/handle_subpixels = true
+shader_parameter/dither_enabled = true
+shader_parameter/bayer_pattern = 3.0
+shader_parameter/divisions = 3.0
+shader_parameter/contrast = 1.0
+shader_parameter/shift = 0.0
+shader_parameter/grayscale = false
+shader_parameter/use_palette = false
+
+[node name="Winmenu" type="Node3D"]
+script = ExtResource("1_1vxfb")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.78135, 0.734086, 4.28457)
+fov = 65.0
+
+[node name="player" parent="." instance=ExtResource("1_bibdu")]
+transform = Transform3D(0.859272, 0, 0.511518, 0, 1, 0, -0.511518, 0, 0.859272, 0, 0, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.385375, -0.55166, 0.7397, 0.254891, 0.834069, 0.489244, -0.886858, 0, 0.462043, 1.57154, 2.25685, 1.82669)
+
+[node name="PostProcessing" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="PostProcessing"]
+material = SubResource("ShaderMaterial_bibdu")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "You're winner!"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Button" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Main menu"
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(643, 253)
+scale = Vector2(2, 2)
+texture = ExtResource("4_64k5x")
+
+[connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/Button" to="." method="on_start_pressed"]

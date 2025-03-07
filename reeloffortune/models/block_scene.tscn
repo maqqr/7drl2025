@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbr18j6w2agqg"]
+
+[ext_resource type="PackedScene" uid="uid://0e0pwymomd1e" path="res://models/block.fbx" id="1_v1ecx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v1ecx"]
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[node name="block" instance=ExtResource("1_v1ecx")]
+
+[node name="Block" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_v1ecx")

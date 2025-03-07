@@ -1,3 +1,4 @@
+// https://godotshaders.com/shader/arbitrary-color-reduction-ordered-dithering/
 group_uniforms Quantization;
 uniform float quantize_size : hint_range(0,100, 1.0) = 1;
 uniform bool handle_scale;

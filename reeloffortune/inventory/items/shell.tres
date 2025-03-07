@@ -24,5 +24,7 @@ attributes = SubResource("Resource_1cngb")
 sprite = ExtResource("3_ybc1i")
 stamina_gain = 0
 eat_msg = ""
+an_article = false
+is_legendary_fish = false
 breakdown = Array[ExtResource("1_f1hyv")]([])
 metadata/_custom_type_script = "uid://da6j1eiq0ev37"

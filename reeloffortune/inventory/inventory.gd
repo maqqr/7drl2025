@@ -7,6 +7,7 @@ const INVALID_SLOT = Vector2i(-1, -1)
 @export var size: Vector2i = Vector2i(4, 4)
 
 signal inventory_changed
+signal inventory_size_changed
 
 func is_slot_empty(slot: Vector2i) -> bool:
 	for item in items:

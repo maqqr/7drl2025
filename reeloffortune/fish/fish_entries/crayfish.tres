@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="FishEntry" load_steps=3 format=3 uid="uid://dugbcga6byce6"]
+
+[ext_resource type="Resource" uid="uid://jnhvpx4ar57e" path="res://inventory/items/fish/crayfish.tres" id="1_dhtto"]
+[ext_resource type="Script" uid="uid://dr2ka41g8i8tg" path="res://fish/fish_entry.gd" id="1_pbp7s"]
+
+[resource]
+script = ExtResource("1_pbp7s")
+item_type = ExtResource("1_dhtto")
+attractions = Array[int]([1, 4])
+minor_attractions = Array[int]([9])
+min_depth = 0
+strength = 0.6
+stamina = 3.0
+description = ""
+metadata/_custom_type_script = "uid://dr2ka41g8i8tg"

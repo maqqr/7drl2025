@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="FishEntry" load_steps=3 format=3 uid="uid://dl2au0lqqxubx"]
+
+[ext_resource type="Script" uid="uid://dr2ka41g8i8tg" path="res://fish/fish_entry.gd" id="1_3odck"]
+[ext_resource type="Resource" uid="uid://c11di7l7slkir" path="res://inventory/items/fish/legendary.tres" id="1_dtsnb"]
+
+[resource]
+script = ExtResource("1_3odck")
+item_type = ExtResource("1_dtsnb")
+attractions = Array[int]([12, 2, 6])
+minor_attractions = Array[int]([])
+min_depth = 3
+strength = 2.0
+stamina = 20.0
+description = ""
+metadata/_custom_type_script = "uid://dr2ka41g8i8tg"

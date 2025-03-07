@@ -8,6 +8,7 @@ script = ExtResource("1_bjppo")
 item_type = ExtResource("1_dod4b")
 attractions = Array[int]([11])
 minor_attractions = Array[int]([4, 9, 2])
+min_depth = 2
 strength = 1.2
 stamina = 6.0
 description = ""

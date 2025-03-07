@@ -6,9 +6,9 @@ var equipment: Equipment
 var item_dragging: ItemDragging
 
 @export var equip_panels: Array[EquipSlotPanelContainer] = []
-@export var stamina_label: Label
-@export var money_label: Label
-@export var depth_label: Label
+@export var stamina_label: RichTextLabel
+@export var money_label: RichTextLabel
+@export var depth_label: RichTextLabel
 
 func _ready() -> void:
 	item_dragging = $"../ItemDragging"
@@ -28,11 +28,13 @@ func on_game_manager_ready():
 	self.inventory = game_manager.player_stats.inventory
 	self.equipment = game_manager.player_stats.equipment
 	self.equipment.equipment_changed.connect(on_equipment_changed)
-	game_manager.player.stamina_changed.connect(func (old_value, new_value): update_labels())
+	game_manager.player_stats.stats_changed.connect(update_labels)
 	update_labels()
 
 func update_labels():
-	stamina_label.text = "Stamina: " + str(game_manager.player.stamina) + "/" + str(game_manager.player.stats.max_stamina)
+	stamina_label.text = "Stamina: " + str(game_manager.player_stats.stamina) + "/" + str(game_manager.player_stats.max_stamina)
+	money_label.text = "Money: " + str(game_manager.player_stats.money) + " [img=24]res://icons/coin.png[/img]"
+	depth_label.text = "Depth: " + str(game_manager.depth)
 
 func on_equip_panel_gui_input(equip_panel: EquipSlotPanelContainer, event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -48,15 +50,26 @@ func drag_ended_on_panel(target_panel: EquipSlotPanelContainer, item: Item) -> b
 		game_manager.message_buffer.add_message(MessageBuffer.MSG_EAT_FAIL)
 
 	if item.item_type.attributes.type_flag & target_panel.equip_flag:
+		var previous_slot = item.inventory_slot
+		var previously_equipped = null
+		if game_manager.player_stats.equipment.slot.has(target_panel.equip_flag):
+			previously_equipped = game_manager.player_stats.equipment.slot[target_panel.equip_flag]
+
 		inventory.remove_item(item)
 		if target_panel.equip_flag & ItemAttributes.TypeFlag.CONSUMABLE:
 			game_manager.message_buffer.add_message(MessageBuffer.MSG_EAT.format({ "item": item.item_type.name, "msg": item.item_type.eat_msg }))
-			game_manager.player.set_stamina(game_manager.player.stamina + item.item_type.stamina_gain)
+			game_manager.player_stats.stamina += item.get_stamina_restore_amount()
 			return true
 
 		game_manager.player_stats.equipment.slot[target_panel.equip_flag] = item
 		target_panel.set_item(game_manager, item)
-		
+
+		if previously_equipped:
+			if previous_slot != Inventory.INVALID_SLOT:
+				inventory.add_item(previous_slot, previously_equipped)
+			else:
+				game_manager.create_ground_item(game_manager.player.map_position, previously_equipped)
+
 		if target_panel.equip_flag & ItemAttributes.TypeFlag.ROD:
 			game_manager.set_player_unarmed(false)
 		return true

@@ -1,0 +1,64 @@
+[gd_scene load_steps=3 format=3 uid="uid://c62hdy2mscvx4"]
+
+[ext_resource type="Script" uid="uid://b0k01eximre18" path="res://game/shop_control.gd" id="1_peyu6"]
+[ext_resource type="PackedScene" uid="uid://dawnrtgls4jiq" path="res://ui/sell_slot_panel_container.tscn" id="3_yu3l4"]
+
+[node name="ShopControl" type="Control" node_paths=PackedStringArray("continue_button", "sell_panel", "shop_items_container")]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+script = ExtResource("1_peyu6")
+continue_button = NodePath("PanelContainer/VBoxContainer/Button")
+sell_panel = NodePath("PanelContainer/VBoxContainer/SellSlotPanelContainer")
+shop_items_container = NodePath("PanelContainer/VBoxContainer/PanelContainer/VBoxContainer")
+
+[node name="BgPanel" type="Panel" parent="."]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -800.0
+offset_bottom = 500.0
+grow_horizontal = 0
+theme_type_variation = &"PanelSimple"
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -400.0
+offset_bottom = 400.0
+grow_horizontal = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[i]You find a friendly goblin who is willing to trade with you.[/i]"
+fit_content = true
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"PanelContainerSimple"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="SellSlotPanelContainer" parent="PanelContainer/VBoxContainer" instance=ExtResource("3_yu3l4")]
+custom_minimum_size = Vector2(240, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+
+[node name="Button" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Continue to next floor"

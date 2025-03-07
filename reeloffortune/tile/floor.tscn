@@ -1,9 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bype3x6iuy6gf"]
+[gd_scene load_steps=2 format=3 uid="uid://ddlwr85uk61l4"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_3wmyh"]
-orientation = 1
+[ext_resource type="PackedScene" uid="uid://dl6515ukjds20" path="res://models/floor.fbx" id="1_d5d1k"]
 
 [node name="Floor" type="Node3D"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("QuadMesh_3wmyh")
+[node name="floor" parent="." instance=ExtResource("1_d5d1k")]

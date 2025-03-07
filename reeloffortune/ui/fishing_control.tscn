@@ -4,7 +4,7 @@
 [ext_resource type="FontFile" uid="uid://c3ty6ucyesqug" path="res://ui_theme/EldringCondensed.ttf" id="1_np7jc"]
 [ext_resource type="Texture2D" uid="uid://dieepj4motg2i" path="res://sprites/minnow.png" id="2_k0f7t"]
 
-[node name="FishingControl" type="Control"]
+[node name="FishingControl" type="Control" node_paths=PackedStringArray("help_text")]
 layout_mode = 3
 anchors_preset = 5
 anchor_left = 0.5
@@ -13,6 +13,7 @@ offset_left = -20.0
 offset_right = -20.0
 grow_horizontal = 2
 script = ExtResource("1_k0f7t")
+help_text = NodePath("PanelContainer/VBoxContainer/Label")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1

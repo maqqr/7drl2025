@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="ItemType" load_steps=6 format=3 uid="uid://jnhvpx4ar57e"]
+
+[ext_resource type="Script" uid="uid://cqv108j88rxjw" path="res://inventory/item_attributes.gd" id="1_n6jwk"]
+[ext_resource type="Script" uid="uid://da6j1eiq0ev37" path="res://inventory/item_type.gd" id="1_qi0xr"]
+[ext_resource type="Resource" uid="uid://dq0siwvgep80i" path="res://inventory/items/shell.tres" id="3_588ae"]
+[ext_resource type="Texture2D" uid="uid://c2peedapsceu1" path="res://sprites/crayfish.png" id="4_dauou"]
+
+[sub_resource type="Resource" id="Resource_g6kmp"]
+script = ExtResource("1_n6jwk")
+type_flag = 64
+size = 2
+attraction_flag = 0
+color = 1
+stickyness = 0
+sharpness = 2
+temperature = 0
+metadata/_custom_type_script = "uid://cqv108j88rxjw"
+
+[resource]
+script = ExtResource("1_qi0xr")
+name = "Crayfish"
+base_value = 15
+item_size = Vector2i(2, 1)
+attributes = SubResource("Resource_g6kmp")
+sprite = ExtResource("4_dauou")
+stamina_gain = 0
+eat_msg = ""
+an_article = false
+is_legendary_fish = false
+breakdown = Array[ExtResource("1_qi0xr")]([ExtResource("3_588ae")])
+metadata/_custom_type_script = "uid://da6j1eiq0ev37"
