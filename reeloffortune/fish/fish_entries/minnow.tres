@@ -6,10 +6,10 @@
 [resource]
 script = ExtResource("1_a2c0u")
 item_type = ExtResource("1_yqjpc")
-attractions = Array[int]([12, 0])
-minor_attractions = Array[int]([6, 10])
+attractions = Array[int]([12, 6])
+minor_attractions = Array[int]([0, 10])
 min_depth = 0
 strength = 0.6
 stamina = 4.0
-description = ""
+description = "These shimmering, fragile fish are strangely attracted to warm, vibrant baits. The contrast of heat and color draws them from their cold crevices."
 metadata/_custom_type_script = "uid://dr2ka41g8i8tg"

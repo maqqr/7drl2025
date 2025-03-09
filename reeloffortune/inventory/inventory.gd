@@ -18,6 +18,8 @@ func is_slot_empty(slot: Vector2i) -> bool:
 func item_fits_in_slot(item: Item, slot: Vector2i) -> bool:
 	var rect = Rect2i(slot, item.item_type.item_size)
 	for inv_item in items:
+		if item == inv_item: # Item cannot block itself
+			continue
 		if Rect2i(inv_item.inventory_slot, inv_item.item_type.item_size).intersects(rect):
 			return false
 	return Rect2i(Vector2i(0, 0), size).encloses(rect)

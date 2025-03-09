@@ -11,6 +11,7 @@ var equipment: Equipment
 var item_dragging: ItemDragging
 
 var offered_rod_types: Dictionary[Item.Quality, ItemType] = {}
+var offered_boot_types: Dictionary[Item.Quality, ItemType] = {}
 
 class SpecialItemType:
 	var name
@@ -49,6 +50,10 @@ func on_game_manager_ready():
 	offered_rod_types[Item.Quality.TARNISHED] = game_manager.get_item_type_by_name("Common Rod")
 	offered_rod_types[Item.Quality.COMMON] = game_manager.get_item_type_by_name("Fine Rod")
 	offered_rod_types[Item.Quality.FINE] = game_manager.get_item_type_by_name("Premium Rod")
+	
+	offered_boot_types[Item.Quality.TARNISHED] = game_manager.get_item_type_by_name("Common Boots")
+	offered_boot_types[Item.Quality.COMMON] = game_manager.get_item_type_by_name("Fine Boots")
+	offered_boot_types[Item.Quality.FINE] = game_manager.get_item_type_by_name("Premium Boots")
 
 func set_shop_visible(p_is_visible: bool) -> void:
 	visible = p_is_visible
@@ -67,14 +72,14 @@ func set_shop_visible(p_is_visible: bool) -> void:
 	var items = []
 
 	# Offer more stamina
-	if game_manager.player_stats.max_stamina < 50:
-		items.append(SpecialItem.new("+5 Max Stamina", 5, func(): game_manager.player_stats.max_stamina += 5))
+	if game_manager.player_stats.max_stamina < game_manager.INITIAL_STAMINA + 20:
+		items.append(SpecialItem.new("+10 Max Stamina", 10, func(): game_manager.player_stats.max_stamina += 10))
 
 	# Offer larger inventory
 	if game_manager.player_stats.inventory.size.x == 3:
-		items.append(SpecialItem.new("+3 Inventory Slots", 10, func(): game_manager.player_stats.inventory.size.x += 1; game_manager.player_stats.inventory.inventory_size_changed.emit()))
+		items.append(SpecialItem.new("+3 Inventory Slots", 20, func(): game_manager.player_stats.inventory.size.x += 1; game_manager.player_stats.inventory.inventory_size_changed.emit()))
 	elif game_manager.player_stats.inventory.size.y == 3:
-		items.append(SpecialItem.new("+4 Inventory Slots", 20, func(): game_manager.player_stats.inventory.size.y += 1; game_manager.player_stats.inventory.inventory_size_changed.emit()))
+		items.append(SpecialItem.new("+4 Inventory Slots", 30, func(): game_manager.player_stats.inventory.size.y += 1; game_manager.player_stats.inventory.inventory_size_changed.emit()))
 
 	# Offer better rod
 	var current_rod: Item = null
@@ -95,11 +100,35 @@ func set_shop_visible(p_is_visible: bool) -> void:
 			Item.Quality.FINE: item.quality = Item.Quality.PREMIUM
 		items.append(item)
 
+	# Offer better boots
+	var current_boots: Item = null
+	if game_manager.player_stats.equipment.slot.has(ItemAttributes.TypeFlag.BOOTS):
+		current_boots = game_manager.player_stats.equipment.slot[ItemAttributes.TypeFlag.BOOTS]
+
+	if !current_boots:
+		var item = Item.new()
+		item.item_type = game_manager.get_item_type_by_name("Soggy Boots")
+		item.quality = Item.Quality.TARNISHED
+		items.append(item)
+	elif offered_boot_types.has(current_boots.quality):
+		var item = Item.new()
+		item.item_type = offered_boot_types[current_boots.quality]
+		match current_boots.quality:
+			Item.Quality.TARNISHED: item.quality = Item.Quality.COMMON
+			Item.Quality.COMMON: item.quality = Item.Quality.FINE
+			Item.Quality.FINE: item.quality = Item.Quality.PREMIUM
+		items.append(item)
+
+	# Remove offers until three remain
+	while items.size() > 3:
+		items.remove_at(randi_range(0, items.size() - 1))
+
 	# Fill extra space with random materials
 	var potential_item_types = []
 	for item_type in game_manager.item_types:
-		if item_type.attributes.type_flag & ItemAttributes.TypeFlag.MATERIAL:
-			potential_item_types.append(item_type)
+		if item_type.attributes.type_flag & ItemAttributes.TypeFlag.MATERIAL and !(item_type.attributes.type_flag & ItemAttributes.TypeFlag.FISH):
+			if item_type.base_value > 0:
+				potential_item_types.append(item_type)
 
 	while items.size() < 3:
 		var item = Item.new()

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="FishEntry" load_steps=3 format=3 uid="uid://doxv55rclwkdj"]
+
+[ext_resource type="Resource" uid="uid://c210hqkk3tgru" path="res://inventory/items/fish/pike.tres" id="1_dbyrm"]
+[ext_resource type="Script" uid="uid://dr2ka41g8i8tg" path="res://fish/fish_entry.gd" id="1_lea7f"]
+
+[resource]
+script = ExtResource("1_lea7f")
+item_type = ExtResource("1_dbyrm")
+attractions = Array[int]([3, 12])
+minor_attractions = Array[int]([10, 4, 2])
+min_depth = 2
+strength = 1.0
+stamina = 6.0
+description = "A predatory fish with jagged, ice-like teeth. It can almost freeze prey with its chilling bite. They prefer live, struggling bait, as the vibrations trigger their predatory instincts, and they are especially attracted to warm blooded prey."
+metadata/_custom_type_script = "uid://dr2ka41g8i8tg"

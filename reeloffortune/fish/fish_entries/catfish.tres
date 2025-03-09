@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="FishEntry" load_steps=3 format=3 uid="uid://o2ul6fo6msr5"]
+
+[ext_resource type="Resource" uid="uid://bsf16k0np3hgt" path="res://inventory/items/fish/catfish.tres" id="1_uecce"]
+[ext_resource type="Script" uid="uid://dr2ka41g8i8tg" path="res://fish/fish_entry.gd" id="1_xusmu"]
+
+[resource]
+script = ExtResource("1_xusmu")
+item_type = ExtResource("1_uecce")
+attractions = Array[int]([9])
+minor_attractions = Array[int]([2, 5])
+min_depth = 0
+strength = 0.6
+stamina = 6.0
+description = "These bottom-dwellers are known to crave anything with a sharp, metallic tang, like jagged bits of ore. They'll snap at anything that crunches."
+metadata/_custom_type_script = "uid://dr2ka41g8i8tg"

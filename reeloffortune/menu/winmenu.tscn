@@ -56,11 +56,12 @@ layout_mode = 2
 theme_override_constants/separation = 32
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 bbcode_enabled = true
-text = "You're winner!"
+text = "You sell the Golden Trout, get out of the cave and pay your debts. You win."
 fit_content = true
-autowrap_mode = 0
+autowrap_mode = 2
 
 [node name="Button" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer"]
 layout_mode = 2

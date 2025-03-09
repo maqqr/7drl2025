@@ -1,10 +1,32 @@
-[gd_scene load_steps=3 format=3 uid="uid://bype3x6iuy6gf"]
+[gd_scene load_steps=8 format=3 uid="uid://bype3x6iuy6gf"]
+
+[ext_resource type="Script" uid="uid://bttuux5vg31xc" path="res://game/light_flicker.gd" id="1_r3xi3"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_3wmyh"]
 orientation = 1
 
 [sub_resource type="BoxMesh" id="BoxMesh_qicbb"]
 size = Vector3(0.245, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_4iiet"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.6
+radial_segments = 6
+
+[sub_resource type="SphereMesh" id="SphereMesh_r3xi3"]
+radial_segments = 8
+rings = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4iiet"]
+albedo_color = Color(0, 0, 0, 1)
+emission_enabled = true
+emission = Color(0.964844, 0.521026, 0.255125, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r3xi3"]
+albedo_color = Color(0, 0, 0, 1)
+emission_enabled = true
+emission = Color(0.964844, 0.774968, 0.266423, 1)
 
 [node name="Downstairs" type="Node3D"]
 
@@ -47,3 +69,31 @@ mesh = SubResource("BoxMesh_qicbb")
 [node name="MeshInstance3D10" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.383695, -1.41313, 0)
 mesh = SubResource("BoxMesh_qicbb")
+
+[node name="MeshInstance3D11" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.589755, 0.252669, -0.566361)
+mesh = SubResource("CylinderMesh_4iiet")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="MeshInstance3D11" node_paths=PackedStringArray("flicker_mesh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5236, 0)
+light_color = Color(0.9375, 0.695493, 0.491985, 1)
+light_energy = 0.1
+omni_range = 2.0
+script = ExtResource("1_r3xi3")
+energy_multiplier = 0.2
+flicker_mesh = NodePath("../Node3D")
+
+[node name="Node3D" type="Node3D" parent="MeshInstance3D11"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.373293, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D11/Node3D"]
+transform = Transform3D(0.182124, 0, 0, 0, 0.182124, 0, 0, 0, 0.182124, 0, 0.00383353, 0)
+mesh = SubResource("SphereMesh_r3xi3")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_4iiet")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="MeshInstance3D11/Node3D/MeshInstance3D"]
+transform = Transform3D(0.819321, 0, 0, 0, 0.819321, 0, 0, 0, 0.819321, 0, 0.575927, 0)
+mesh = SubResource("SphereMesh_r3xi3")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_r3xi3")

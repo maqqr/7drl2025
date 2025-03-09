@@ -120,6 +120,12 @@ func breakdown(item: Item) -> Item:
 	new_item.item_type = new_item_type
 	new_item.quality = item.quality
 	new_item.inventory_slot = item.inventory_slot
+
+	if new_item.item_type.attributes.type_flag & ItemAttributes.TypeFlag.BAIT:
+		match new_item.quality:
+			Item.Quality.FINE: new_item.bait_uses_left = 1
+			Item.Quality.PREMIUM: new_item.bait_uses_left = 2
+
 	return new_item
 
 func combine(item1: Item, item2: Item) -> Item:
@@ -152,6 +158,11 @@ func combine(item1: Item, item2: Item) -> Item:
 	attr.type_flag |= ItemAttributes.TypeFlag.BAIT
 	attr.type_flag &= ~ItemAttributes.TypeFlag.FISH
 	attr.type_flag &= ~ItemAttributes.TypeFlag.MATERIAL
+
+	if attr.type_flag & ItemAttributes.TypeFlag.BAIT:
+		match result.quality:
+			Item.Quality.FINE: result.bait_uses_left = 1
+			Item.Quality.PREMIUM: result.bait_uses_left = 2
 
 	result.inventory_slot = Inventory.INVALID_SLOT
 	return result

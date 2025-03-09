@@ -11,5 +11,5 @@ minor_attractions = Array[int]([4, 9, 2])
 min_depth = 2
 strength = 1.2
 stamina = 6.0
-description = ""
+description = "This fiery red fish, acclimated to the cave's geothermal vents, strikes at the coldest baits."
 metadata/_custom_type_script = "uid://dr2ka41g8i8tg"

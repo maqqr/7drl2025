@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="ItemType" load_steps=8 format=3 uid="uid://d2m10ob5bjcnj"]
+
+[ext_resource type="Script" uid="uid://da6j1eiq0ev37" path="res://inventory/item_type.gd" id="1_3x4vq"]
+[ext_resource type="Script" uid="uid://cqv108j88rxjw" path="res://inventory/item_attributes.gd" id="1_ml1qw"]
+[ext_resource type="Texture2D" uid="uid://v84piyyvi241" path="res://sprites/mushroom.png" id="3_skw8q"]
+[ext_resource type="Resource" uid="uid://dnuu58xpjgtwv" path="res://inventory/items/mushroom_cap.tres" id="3_v3ity"]
+[ext_resource type="Resource" uid="uid://b1qkyimxy40ya" path="res://inventory/items/mushroom_gills.tres" id="4_p3k0u"]
+[ext_resource type="Resource" uid="uid://cf0hlxflq5y1u" path="res://inventory/items/mushroom_stem.tres" id="5_rqq81"]
+
+[sub_resource type="Resource" id="Resource_skw8q"]
+script = ExtResource("1_ml1qw")
+type_flag = 10
+size = 2
+attraction_flag = 1
+color = 0
+stickyness = 0
+sharpness = 0
+temperature = 0
+metadata/_custom_type_script = "uid://cqv108j88rxjw"
+
+[resource]
+script = ExtResource("1_3x4vq")
+name = "Mushroom"
+base_value = 3
+item_size = Vector2i(1, 1)
+attributes = SubResource("Resource_skw8q")
+sprite = ExtResource("3_skw8q")
+stamina_gain = 2
+eat_msg = "It's oddly chewy, like a luminous slug."
+an_article = false
+is_legendary_fish = false
+breakdown = Array[ExtResource("1_3x4vq")]([ExtResource("3_v3ity"), ExtResource("4_p3k0u"), ExtResource("5_rqq81")])
+metadata/_custom_type_script = "uid://da6j1eiq0ev37"

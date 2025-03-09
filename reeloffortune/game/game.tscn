@@ -1,7 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://dx021aa4tejww"]
+[gd_scene load_steps=17 format=3 uid="uid://dx021aa4tejww"]
 
 [ext_resource type="Script" uid="uid://dvrl1vh7ug3qs" path="res://game/game_manager.gd" id="1_hu71m"]
 [ext_resource type="Shader" uid="uid://vw787p7laj5g" path="res://shader/colorrect_dither.gdshader" id="2_vasa2"]
+[ext_resource type="Material" uid="uid://b0jh41rbjebbh" path="res://ui/cursor_material.tres" id="2_vsp63"]
+[ext_resource type="Material" uid="uid://bjogvsw4gy3nw" path="res://ui/cursor_highlight_material.tres" id="3_b686c"]
 [ext_resource type="PackedScene" uid="uid://dqw71n8563mph" path="res://ui/in_game_inventory_control.tscn" id="3_h7iqs"]
 [ext_resource type="PackedScene" uid="uid://clmb0ahu2wc0x" path="res://ui/crafting_control.tscn" id="4_dxrkv"]
 [ext_resource type="PackedScene" uid="uid://c62hdy2mscvx4" path="res://ui/shop_control.tscn" id="4_l8g03"]
@@ -9,13 +11,9 @@
 [ext_resource type="Script" uid="uid://senrvwbpipud" path="res://ui/status_panel_container.gd" id="5_u5opy"]
 [ext_resource type="Script" uid="uid://dalvnlugoin2q" path="res://ui/item_dragging.gd" id="6_dakft"]
 [ext_resource type="Script" uid="uid://c0kh1swpwvenp" path="res://ui/message_buffer.gd" id="7_y36n6"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vasa2"]
-albedo_color = Color(0, 0, 0, 1)
-metallic_specular = 0.0
-emission_enabled = true
-emission = Color(1, 0.93227, 0.538798, 1)
-disable_receive_shadows = true
+[ext_resource type="Texture2D" uid="uid://bjqi6s11xoni4" path="res://sprites/journal.png" id="9_3vho3"]
+[ext_resource type="PackedScene" uid="uid://dx24jl1rrfiax" path="res://ui/journal_control.tscn" id="9_j8tme"]
+[ext_resource type="Script" uid="uid://btuomcey2vju7" path="res://ui/journal_panel_container.gd" id="9_qf6n1"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_vasa2"]
 size = Vector3(0.1, 0.1, 1)
@@ -35,6 +33,8 @@ shader_parameter/use_palette = false
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_hu71m")
+cursor_material = ExtResource("2_vsp63")
+cursor_highlight_material = ExtResource("3_b686c")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 9.29654, 12.1536, 11.6766)
@@ -44,27 +44,27 @@ fov = 60.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Cursor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
-material_override = SubResource("StandardMaterial3D_vasa2")
 cast_shadow = 0
 mesh = SubResource("BoxMesh_vasa2")
+surface_material_override/0 = ExtResource("2_vsp63")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Cursor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
-material_override = SubResource("StandardMaterial3D_vasa2")
 cast_shadow = 0
 mesh = SubResource("BoxMesh_vasa2")
+surface_material_override/0 = ExtResource("2_vsp63")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="Cursor"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.18557e-08, 0, -0.5)
-material_override = SubResource("StandardMaterial3D_vasa2")
 cast_shadow = 0
 mesh = SubResource("BoxMesh_vasa2")
+surface_material_override/0 = ExtResource("2_vsp63")
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="Cursor"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.18557e-08, 0, 0.5)
-material_override = SubResource("StandardMaterial3D_vasa2")
 cast_shadow = 0
 mesh = SubResource("BoxMesh_vasa2")
+surface_material_override/0 = ExtResource("2_vsp63")
 
 [node name="PostProcessing" type="CanvasLayer" parent="."]
 
@@ -120,7 +120,7 @@ grow_vertical = 0
 size_flags_horizontal = 3
 size_flags_vertical = 8
 script = ExtResource("5_u5opy")
-equip_panels = [NodePath("HBoxContainer/EquipSlotPanelContainer"), NodePath("HBoxContainer/EquipSlotPanelContainer2"), NodePath("HBoxContainer/EquipSlotPanelContainer3"), NodePath("HBoxContainer/EquipSlotPanelContainer4"), NodePath("HBoxContainer/EquipSlotPanelContainer5")]
+equip_panels = [NodePath("HBoxContainer/EquipSlotPanelContainer"), NodePath("HBoxContainer/EquipSlotPanelContainer2"), NodePath("HBoxContainer/EquipSlotPanelContainer3"), NodePath("HBoxContainer/EquipSlotPanelContainer5")]
 stamina_label = NodePath("HBoxContainer/VBoxContainer/StaminaRichTextLabel")
 money_label = NodePath("HBoxContainer/VBoxContainer/MoneyRichTextLabel")
 depth_label = NodePath("HBoxContainer/VBoxContainer/DepthRichTextLabel")
@@ -178,9 +178,19 @@ equip_flag = 1
 layout_mode = 2
 equip_flag = 32
 
-[node name="EquipSlotPanelContainer4" parent="GUI/StatusPanelContainer/HBoxContainer" instance=ExtResource("5_dxrkv")]
+[node name="PanelContainer" type="PanelContainer" parent="GUI/StatusPanelContainer/HBoxContainer"]
+self_modulate = Color(0.623529, 0.623529, 0.623529, 1)
+custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-equip_flag = 16
+theme_type_variation = &"PanelContainerSimple"
+script = ExtResource("9_qf6n1")
+
+[node name="Sprite2D" type="Sprite2D" parent="GUI/StatusPanelContainer/HBoxContainer/PanelContainer"]
+position = Vector2(40, 40)
+scale = Vector2(2, 2)
+texture = ExtResource("9_3vho3")
+
+[node name="JournalControl" parent="GUI" instance=ExtResource("9_j8tme")]
 
 [node name="ItemDragging" type="Control" parent="GUI"]
 layout_mode = 3

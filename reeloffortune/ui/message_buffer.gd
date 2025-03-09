@@ -5,7 +5,7 @@ const SHOW_MESSAGE_TIME = 8
 const FADE_DELAY = 0.07
 
 const MSG_LEARN: String = "[i]You learn that {item} breaks down into {result}![/i]"
-const MSG_NO_BITE: String = "[i]Hmm. No bite.[/i]"
+const MSG_NO_BITE: String = "[i]Hmm. Not even a nibble. This type of bait does not seem to work here.[/i]"
 const MSG_NO_BAIT: String = "[i]You need to equip a bait to catch anything.[/i]"
 const MSG_NO_ROD: String = "[i]You need to equip a fishing rod first.[/i]"
 const MSG_CATCH: String = "[i]You catch a {fish}![/i]"
@@ -20,13 +20,23 @@ const MSG_BUY_FAIL_SPACE: String = "[i]You don't have enough space for that.[/i]
 const MSG_NO_INV_SPACE: String = "[i]Not enough space in inventory.[/i]"
 const MSG_DROP: String = "[i]You drop {item}.[/i]"
 const MSG_IS_NOT_MAT: String = "[i]{item} is not a material.[/i]"
+const MSG_EQUIP_HELP: String = "[i]Drag an item here to {action} it.[/i]"
+const MSG_NO_STAMINA: String = "[i]Not enough stamina.[/i]"
+const MSG_BAIT_GONE: String = "[i]Your bait is gone.[/i]"
+const MSG_NEW_JOURNAL: String = "[i]{fish} was added to your journal.[/i]"
+const MSG_FLOOR_HURT: String = "[i]The rough cave floor hurts your feet.[/i]"
+const MSG_WRONG_TYPE: String = "[i]{item} is not a {type}.[/i]"
 
 func add_message(msg: String) -> void:
 	var line = preload("res://ui/message_line.tscn").instantiate()
 	line.text = msg
 	$VBoxContainer.add_child(line)
-	
-	var tween = get_tree().create_tween()
+
+	var tree = get_tree()
+	if !tree:
+		return
+
+	var tween = tree.create_tween()
 	tween.tween_interval(SHOW_MESSAGE_TIME)
 	tween.tween_property(line, "self_modulate", Color(0.7, 0.7, 0.7), 0.0)
 	tween.tween_interval(FADE_DELAY)

@@ -25,3 +25,6 @@ func get_idle_animation_name() -> StringName:
 
 func get_walk_animation_name() -> StringName:
 	return &"Armature|walk" if !unarmed else &"Armature|walk_unarmed"
+
+func get_break_animation_name() -> StringName:
+	return &"Armature|kick" if !unarmed else &"Armature|kick_unarmed"

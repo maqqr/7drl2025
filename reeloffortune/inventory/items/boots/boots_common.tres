@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="ItemType" load_steps=5 format=3 uid="uid://b03yi5u3tlj5i"]
+
+[ext_resource type="Script" uid="uid://da6j1eiq0ev37" path="res://inventory/item_type.gd" id="1_miv5v"]
+[ext_resource type="Script" uid="uid://cqv108j88rxjw" path="res://inventory/item_attributes.gd" id="1_sj387"]
+[ext_resource type="Texture2D" uid="uid://csbadf5tafc7m" path="res://sprites/boot_common.png" id="3_lvll6"]
+
+[sub_resource type="Resource" id="Resource_nl8wi"]
+script = ExtResource("1_sj387")
+type_flag = 33
+size = 3
+attraction_flag = 2
+color = 0
+stickyness = 0
+sharpness = 0
+temperature = 0
+metadata/_custom_type_script = "uid://cqv108j88rxjw"
+
+[resource]
+script = ExtResource("1_miv5v")
+name = "Common Boots"
+base_value = 0
+item_size = Vector2i(1, 1)
+attributes = SubResource("Resource_nl8wi")
+sprite = ExtResource("3_lvll6")
+stamina_gain = 0
+eat_msg = ""
+an_article = false
+is_legendary_fish = false
+breakdown = Array[ExtResource("1_miv5v")]([])
+metadata/_custom_type_script = "uid://da6j1eiq0ev37"

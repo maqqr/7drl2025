@@ -25,4 +25,5 @@ func set_item_to_slot(type_flag: ItemAttributes.TypeFlag, item: Item):
 func remove_item(item: Item):
 	for s in SLOTS:
 		if slot[s] == item:
+			equipment_changed.emit(s, item)
 			slot[s] = null

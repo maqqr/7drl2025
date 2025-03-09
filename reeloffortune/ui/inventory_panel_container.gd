@@ -10,6 +10,8 @@ var item_sprite_dict: Dictionary[Item, Sprite2D] = {}
 var need_refresh: bool
 var item_dragging: ItemDragging
 
+var debug_label: Label
+
 func _ready() -> void:
 	item_sprite_container = Control.new()
 	item_sprite_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -18,6 +20,10 @@ func _ready() -> void:
 	item_dragging = $"../../ItemDragging"
 	assert(item_dragging)
 	item_dragging.panel_providers.append(self)
+	
+	#debug_label = Label.new()
+	#debug_label.text = "asd"
+	#$"/root/Game/GUI".add_child.call_deferred(debug_label)
 
 func get_panels():
 	return grid_container.get_children()
@@ -79,6 +85,14 @@ func on_panel_gui_input(panel: ItemPanel, event: InputEvent) -> void:
 				item_dragging.start_drag(item, item_sprite_dict[item])
 
 func _process(delta: float) -> void:
+	if debug_label:
+		debug_label.global_position = Vector2(5, 5)
+		debug_label.label_settings = LabelSettings.new()
+		debug_label.label_settings.font_size = 9
+		debug_label.text = ""
+		for item in inventory.items:
+			debug_label.text += item.item_type.name + "\n"
+
 	if need_refresh:
 		need_refresh = false
 

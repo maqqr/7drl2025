@@ -9,6 +9,8 @@ enum Music {
 	END,
 }
 
+var muted: bool = false
+
 func _ready() -> void:
 	audio = AudioStreamPlayer.new()
 	add_child(audio)
@@ -24,3 +26,8 @@ func play_music(m: Music):
 	audio.volume_linear = 0.6
 	if not OS.has_feature("editor"):
 		audio.play()
+
+func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("mute"):
+		muted = !muted
+		audio.volume_linear = 0.0 if muted else 0.6

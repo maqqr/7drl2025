@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="ItemType" load_steps=7 format=3 uid="uid://bsf16k0np3hgt"]
+
+[ext_resource type="Script" uid="uid://cqv108j88rxjw" path="res://inventory/item_attributes.gd" id="1_kv2n2"]
+[ext_resource type="Script" uid="uid://da6j1eiq0ev37" path="res://inventory/item_type.gd" id="1_xc537"]
+[ext_resource type="Texture2D" uid="uid://diwhmn3jrw0e5" path="res://sprites/catfish.png" id="3_6hus1"]
+[ext_resource type="Resource" uid="uid://i83r3pebmred" path="res://inventory/items/fish_bone.tres" id="3_h381b"]
+[ext_resource type="Resource" uid="uid://b012tmtrv8ba0" path="res://inventory/items/meat.tres" id="4_p72rq"]
+
+[sub_resource type="Resource" id="Resource_h381b"]
+script = ExtResource("1_kv2n2")
+type_flag = 64
+size = 2
+attraction_flag = 0
+color = 0
+stickyness = 2
+sharpness = 0
+temperature = 0
+metadata/_custom_type_script = "uid://cqv108j88rxjw"
+
+[resource]
+script = ExtResource("1_xc537")
+name = "Rockjaw Catfish"
+base_value = 10
+item_size = Vector2i(2, 1)
+attributes = SubResource("Resource_h381b")
+sprite = ExtResource("3_6hus1")
+stamina_gain = 0
+eat_msg = ""
+an_article = false
+is_legendary_fish = false
+breakdown = Array[ExtResource("1_xc537")]([ExtResource("3_h381b"), ExtResource("4_p72rq")])
+metadata/_custom_type_script = "uid://da6j1eiq0ev37"

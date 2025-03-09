@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://d2l0sw0cdnc05"]
+
+[ext_resource type="Script" uid="uid://c64frcb4jg6du" path="res://breakable/breakable.gd" id="1_a4cs5"]
+[ext_resource type="Script" uid="uid://da6j1eiq0ev37" path="res://inventory/item_type.gd" id="2_46beq"]
+[ext_resource type="Resource" uid="uid://byiat0prxs1x2" path="res://inventory/items/stone_shard.tres" id="3_xw2uo"]
+[ext_resource type="Resource" uid="uid://cv8n0nhqpwrie" path="res://inventory/items/crystal.tres" id="4_wtmhr"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_vygux"]
+radius = 0.3
+height = 0.5
+radial_segments = 16
+rings = 8
+
+[sub_resource type="PrismMesh" id="PrismMesh_vygux"]
+size = Vector3(0.385, 0.395, 0.735)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a4cs5"]
+albedo_color = Color(1, 0.342403, 0.819773, 1)
+
+[node name="Crystal" type="Node3D"]
+script = ExtResource("1_a4cs5")
+breakable_name = "Crystal"
+drop_table = Array[ExtResource("2_46beq")]([ExtResource("3_xw2uo"), ExtResource("4_wtmhr"), ExtResource("4_wtmhr")])
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.209026, 0.0848648, -0.141008)
+mesh = SubResource("SphereMesh_vygux")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.215574, 0.0830689, -0.0593433)
+mesh = SubResource("SphereMesh_vygux")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0676598, -0.0363319, 0.151351)
+mesh = SubResource("SphereMesh_vygux")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.372873, -0.305695, 0.163027, 0.037875, 0.202104, 0.465597, -0.344373, 0.353222, -0.125312, 0.274447, 0.225028, 0)
+mesh = SubResource("PrismMesh_vygux")
+surface_material_override/0 = SubResource("StandardMaterial3D_a4cs5")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.437642, -0.191388, -0.175786, -0.168003, -0.0542929, 0.477377, -0.198256, 0.468491, -0.0164896, -0.13907, 0.119804, 0.151353)
+mesh = SubResource("PrismMesh_vygux")
+surface_material_override/0 = SubResource("StandardMaterial3D_a4cs5")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.365779, -0.343632, -0.0847553, -0.241701, 0.153488, 0.420813, -0.258548, 0.342665, -0.273486, -0.13907, 0.191374, -0.210006)
+mesh = SubResource("PrismMesh_vygux")
+surface_material_override/0 = SubResource("StandardMaterial3D_a4cs5")

@@ -35,12 +35,31 @@ static func quality_multiplier(q: Quality) -> float:
 @export var quality: Quality
 @export var is_crafted: bool
 @export var inventory_slot: Vector2i
+var bait_uses_left: int = 0
 
 func get_stamina_restore_amount() -> int:
-	return int(quality_multiplier(quality) * item_type.stamina_gain)
+	return int((1.0 + quality_multiplier(quality)) * 0.5 * item_type.stamina_gain)
 
 func get_value() -> int:
 	return int(quality_multiplier(quality) * item_type.base_value)
+
+func get_bait_spend_chance() -> float:
+	#match quality:
+		#Quality.COMMON: return 0.5
+		#Quality.FINE: return 0.5
+		#Quality.PREMIUM: return 0.5
+	#return 1.0
+	if bait_uses_left > 0:
+		return 0.0
+	return 0.66
+
+func get_steps_per_stamina_drain():
+	match quality:
+		Quality.TARNISHED: return 5
+		Quality.COMMON: return 6
+		Quality.FINE: return 7
+		Quality.PREMIUM: return 8
+	return 0
 
 func get_buy_price() -> int:
 	if item_type.attributes.type_flag & ItemAttributes.TypeFlag.ROD:
@@ -48,6 +67,11 @@ func get_buy_price() -> int:
 			return 0
 		else:
 			return int(quality_multiplier(quality) * 40)
+	elif item_type.attributes.type_flag & ItemAttributes.TypeFlag.BOOTS:
+		if quality == Quality.TARNISHED:
+			return 0
+		else:
+			return int(quality_multiplier(quality) * 20)
 	else:
 		return get_value()
 
@@ -80,6 +104,7 @@ func make_tooltip(game_manager: GameManager) -> String:
 		"tags": ", ".join(tags),
 		"break": ("\nIt breaks down into:\n - " + ", ".join(breakdown)) if !breakdown.is_empty() else "",
 		"value": str(get_value()) + " [img=24]res://icons/coin.png[/img]",
-		"stam": "" if stam_gain == 0 else "\nRestores " + str(stam_gain) + " stamina."
+		"stam": "" if stam_gain == 0 else "\nRestores " + str(stam_gain) + " stamina.",
+		"boot": "\nOne point of stamina is consumed every " + str(get_steps_per_stamina_drain()) + " steps." if item_type.attributes.type_flag & ItemAttributes.TypeFlag.BOOTS else "",
 	}
-	return "[color={col}][b]{name}[/b] ([i]{qual}[/i])[/color]\nValue: {value}\nIt is {size}-sized.{stam}{craf}{break}\n\n({tags})".format(info)
+	return "[color={col}][b]{name}[/b] ([i]{qual}[/i])[/color]\nValue: {value}\nIt is {size}-sized.{stam}{boot}{craf}{break}\n\n({tags})".format(info)

@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="ItemType" load_steps=5 format=3 uid="uid://c36ianep8rl3b"]
+
+[ext_resource type="Script" uid="uid://da6j1eiq0ev37" path="res://inventory/item_type.gd" id="1_leb3m"]
+[ext_resource type="Script" uid="uid://cqv108j88rxjw" path="res://inventory/item_attributes.gd" id="1_o7yur"]
+[ext_resource type="Texture2D" uid="uid://d1ptids0kdbqb" path="res://sprites/warm_guts.png" id="3_c434p"]
+
+[sub_resource type="Resource" id="Resource_m6tb7"]
+script = ExtResource("1_o7yur")
+type_flag = 2
+size = 2
+attraction_flag = 2
+color = 0
+stickyness = 0
+sharpness = 0
+temperature = 2
+metadata/_custom_type_script = "uid://cqv108j88rxjw"
+
+[resource]
+script = ExtResource("1_leb3m")
+name = "Warm Guts"
+base_value = 10
+item_size = Vector2i(1, 1)
+attributes = SubResource("Resource_m6tb7")
+sprite = ExtResource("3_c434p")
+stamina_gain = 0
+eat_msg = ""
+an_article = false
+is_legendary_fish = false
+breakdown = Array[ExtResource("1_leb3m")]([])
+metadata/_custom_type_script = "uid://da6j1eiq0ev37"

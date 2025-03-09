@@ -44,6 +44,15 @@ static func attraction_str(a: Attraction):
 @export var stamina: float
 @export_multiline var description: String
 
+var is_known: bool = false
+
+func get_max_bait_size() -> ItemAttributes.Size:
+	#return max(ItemAttributes.Size.TINY, item_type.size - 1)
+	return item_type.attributes.size
+
+func get_preferred_bait_size() -> ItemAttributes.Size:
+	return max(ItemAttributes.Size.TINY, item_type.attributes.size - 1)
+
 static func attraction_match_count(attr_array: Array[Attraction], attr: ItemAttributes) -> int:
 	var result = 0
 	for attraction in attr_array:

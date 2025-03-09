@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://bqgw6b7ybok6v"]
+
+[ext_resource type="Script" uid="uid://c64frcb4jg6du" path="res://breakable/breakable.gd" id="1_lvfwo"]
+[ext_resource type="Script" uid="uid://da6j1eiq0ev37" path="res://inventory/item_type.gd" id="2_bpc2g"]
+[ext_resource type="Resource" uid="uid://byiat0prxs1x2" path="res://inventory/items/stone_shard.tres" id="3_psgpf"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_sg7w5"]
+top_radius = 0.0
+bottom_radius = 0.2
+height = 1.0
+radial_segments = 8
+
+[node name="Stalagmite" type="Node3D"]
+script = ExtResource("1_lvfwo")
+breakable_name = "Stalagmite"
+drop_table = Array[ExtResource("2_bpc2g")]([ExtResource("3_psgpf")])
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.468248, 0)
+mesh = SubResource("CylinderMesh_sg7w5")

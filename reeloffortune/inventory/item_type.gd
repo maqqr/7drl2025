@@ -39,6 +39,8 @@ static func load_all() -> Array[ItemType]:
 
 	# Item config validation
 	for item in items:
+		assert(item.sprite)
+		
 		# Check that breakdowns do not contain custom item types
 		for i in item.breakdown:
 			assert(valid_ids.find(i.get_instance_id()) != -1)

@@ -6,9 +6,10 @@
 [resource]
 script = ExtResource("1_xbm36")
 item_type = ExtResource("1_vujps")
-attractions = Array[int]([6])
-minor_attractions = Array[int]([0, 4, 10])
+attractions = Array[int]([0])
+minor_attractions = Array[int]([6, 4, 10])
+min_depth = 0
 strength = 0.5
 stamina = 5.0
-description = ""
+description = "They're drawn to any bait that mimics the natural glow of cave life, using the faintest light to navigate."
 metadata/_custom_type_script = "uid://dr2ka41g8i8tg"

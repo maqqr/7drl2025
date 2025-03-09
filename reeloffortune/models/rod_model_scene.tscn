@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://trg786j1ieh6"]
+
+[ext_resource type="PackedScene" uid="uid://c5sakbegyjji2" path="res://models/rod.fbx" id="1_r8wr1"]
+
+[node name="rod" instance=ExtResource("1_r8wr1")]
+
+[node name="Cylinder" parent="." index="0"]
+cast_shadow = 0

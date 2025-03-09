@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="ItemType" load_steps=5 format=3 uid="uid://byiat0prxs1x2"]
+
+[ext_resource type="Script" uid="uid://cqv108j88rxjw" path="res://inventory/item_attributes.gd" id="1_dkxpq"]
+[ext_resource type="Script" uid="uid://da6j1eiq0ev37" path="res://inventory/item_type.gd" id="1_g7fod"]
+[ext_resource type="Texture2D" uid="uid://brsmpcoehdr13" path="res://sprites/stone_shard.png" id="3_6bumc"]
+
+[sub_resource type="Resource" id="Resource_7nlby"]
+script = ExtResource("1_dkxpq")
+type_flag = 2
+size = 0
+attraction_flag = 0
+color = 0
+stickyness = 0
+sharpness = 1
+temperature = 0
+metadata/_custom_type_script = "uid://cqv108j88rxjw"
+
+[resource]
+script = ExtResource("1_g7fod")
+name = "Stone Shard"
+base_value = 0
+item_size = Vector2i(1, 1)
+attributes = SubResource("Resource_7nlby")
+sprite = ExtResource("3_6bumc")
+stamina_gain = 0
+eat_msg = ""
+an_article = false
+is_legendary_fish = false
+breakdown = Array[ExtResource("1_g7fod")]([])
+metadata/_custom_type_script = "uid://da6j1eiq0ev37"

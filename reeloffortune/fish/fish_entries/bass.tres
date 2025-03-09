@@ -11,5 +11,5 @@ minor_attractions = Array[int]([1, 3, 5])
 min_depth = 0
 strength = 0.8
 stamina = 6.0
-description = ""
+description = "Found in the murkiest depths, they're suckers for anything with a strong scent, savory flavor or a slick texture. They fight dirty, using the cave's shadows to their advantage."
 metadata/_custom_type_script = "uid://dr2ka41g8i8tg"

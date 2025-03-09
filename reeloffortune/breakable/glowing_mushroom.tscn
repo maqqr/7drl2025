@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://bqcok21si1axt"]
+
+[ext_resource type="Script" uid="uid://c64frcb4jg6du" path="res://breakable/breakable.gd" id="1_go22p"]
+[ext_resource type="Script" uid="uid://da6j1eiq0ev37" path="res://inventory/item_type.gd" id="2_5i4ny"]
+[ext_resource type="Resource" uid="uid://d2m10ob5bjcnj" path="res://inventory/items/mushroom.tres" id="3_5i4ny"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_y512o"]
+radius = 0.1
+height = 0.7
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_go22p"]
+top_radius = 0.0
+bottom_radius = 0.3
+height = 0.3
+radial_segments = 8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5i4ny"]
+
+[node name="GlowingMushroom" type="Node3D"]
+script = ExtResource("1_go22p")
+breakable_name = "Glowing Mushroom"
+drop_table = Array[ExtResource("2_5i4ny")]([ExtResource("3_5i4ny")])
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.315004, 0)
+mesh = SubResource("CapsuleMesh_y512o")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.649939, 0)
+mesh = SubResource("CylinderMesh_go22p")
+surface_material_override/0 = SubResource("StandardMaterial3D_5i4ny")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06001, 0)
+light_color = Color(0.651139, 0.674663, 1, 1)
+light_energy = 0.2
+omni_range = 2.0

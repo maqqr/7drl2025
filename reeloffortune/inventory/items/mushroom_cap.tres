@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="ItemType" load_steps=5 format=3 uid="uid://dnuu58xpjgtwv"]
+
+[ext_resource type="Script" uid="uid://cqv108j88rxjw" path="res://inventory/item_attributes.gd" id="1_2kgh2"]
+[ext_resource type="Script" uid="uid://da6j1eiq0ev37" path="res://inventory/item_type.gd" id="1_lbq8d"]
+[ext_resource type="Texture2D" uid="uid://bgkai6bkqq7um" path="res://sprites/mushroom_cap.png" id="3_2s0o0"]
+
+[sub_resource type="Resource" id="Resource_asqa7"]
+script = ExtResource("1_2kgh2")
+type_flag = 2
+size = 1
+attraction_flag = 1
+color = 0
+stickyness = 0
+sharpness = 2
+temperature = 0
+metadata/_custom_type_script = "uid://cqv108j88rxjw"
+
+[resource]
+script = ExtResource("1_lbq8d")
+name = "Mushroom Cap"
+base_value = 2
+item_size = Vector2i(1, 1)
+attributes = SubResource("Resource_asqa7")
+sprite = ExtResource("3_2s0o0")
+stamina_gain = 0
+eat_msg = ""
+an_article = false
+is_legendary_fish = false
+breakdown = Array[ExtResource("1_lbq8d")]([])
+metadata/_custom_type_script = "uid://da6j1eiq0ev37"

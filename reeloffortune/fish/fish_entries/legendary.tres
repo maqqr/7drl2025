@@ -6,10 +6,10 @@
 [resource]
 script = ExtResource("1_3odck")
 item_type = ExtResource("1_dtsnb")
-attractions = Array[int]([12, 2, 6])
+attractions = Array[int]([12, 2, 1])
 minor_attractions = Array[int]([])
-min_depth = 3
+min_depth = 8
 strength = 2.0
 stamina = 20.0
-description = ""
+description = "You have heard rumors of this legendary fish and decided seek it out. The scales are said to be made of pure gold."
 metadata/_custom_type_script = "uid://dr2ka41g8i8tg"

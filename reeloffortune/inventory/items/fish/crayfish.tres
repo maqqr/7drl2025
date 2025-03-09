@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="ItemType" load_steps=6 format=3 uid="uid://jnhvpx4ar57e"]
+[gd_resource type="Resource" script_class="ItemType" load_steps=7 format=3 uid="uid://jnhvpx4ar57e"]
 
 [ext_resource type="Script" uid="uid://cqv108j88rxjw" path="res://inventory/item_attributes.gd" id="1_n6jwk"]
 [ext_resource type="Script" uid="uid://da6j1eiq0ev37" path="res://inventory/item_type.gd" id="1_qi0xr"]
 [ext_resource type="Resource" uid="uid://dq0siwvgep80i" path="res://inventory/items/shell.tres" id="3_588ae"]
+[ext_resource type="Resource" uid="uid://cjdj1k1jx85wa" path="res://inventory/items/small_meat.tres" id="4_588ae"]
 [ext_resource type="Texture2D" uid="uid://c2peedapsceu1" path="res://sprites/crayfish.png" id="4_dauou"]
 
 [sub_resource type="Resource" id="Resource_g6kmp"]
@@ -27,5 +28,5 @@ stamina_gain = 0
 eat_msg = ""
 an_article = false
 is_legendary_fish = false
-breakdown = Array[ExtResource("1_qi0xr")]([ExtResource("3_588ae")])
+breakdown = Array[ExtResource("1_qi0xr")]([ExtResource("3_588ae"), ExtResource("4_588ae")])
 metadata/_custom_type_script = "uid://da6j1eiq0ev37"

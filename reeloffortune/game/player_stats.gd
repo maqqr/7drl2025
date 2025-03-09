@@ -11,6 +11,12 @@ var legendary_caught: bool = false
 
 signal stats_changed
 
+func get_steps_per_stamina_drain():
+	var boots = equipment.slot[ItemAttributes.TypeFlag.BOOTS]
+	if boots:
+		return boots.get_steps_per_stamina_drain()
+	return 1
+
 var stamina: int:
 	get:
 		return _stamina
